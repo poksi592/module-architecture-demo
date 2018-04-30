@@ -40,17 +40,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3E59876C2061879F0024F7F7 /* APIClientArchitectureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APIClientArchitectureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E59876C2061879F0024F7F7 /* ModuleArchitectureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModuleArchitectureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59876F2061879F0024F7F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E5987712061879F0024F7F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3E5987742061879F0024F7F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E5987762061879F0024F7F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E5987792061879F0024F7F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E59877B2061879F0024F7F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E5987802061879F0024F7F7 /* APIClientArchitectureDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APIClientArchitectureDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E5987802061879F0024F7F7 /* ModuleArchitectureDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModuleArchitectureDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5987842061879F0024F7F7 /* APIClientArchitectureDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientArchitectureDemoTests.swift; sourceTree = "<group>"; };
 		3E5987862061879F0024F7F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E59878B2061879F0024F7F7 /* APIClientArchitectureDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APIClientArchitectureDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E59878B2061879F0024F7F7 /* ModuleArchitectureDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModuleArchitectureDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59878F2061879F0024F7F7 /* APIClientArchitectureDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientArchitectureDemoUITests.swift; sourceTree = "<group>"; };
 		3E5987912061879F0024F7F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E5987A42061889B0024F7F7 /* ModuleHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleHub.swift; sourceTree = "<group>"; };
@@ -89,9 +89,9 @@
 		3E5987632061879F0024F7F7 = {
 			isa = PBXGroup;
 			children = (
-				3E59876E2061879F0024F7F7 /* APIClientArchitectureDemo */,
-				3E5987832061879F0024F7F7 /* APIClientArchitectureDemoTests */,
-				3E59878E2061879F0024F7F7 /* APIClientArchitectureDemoUITests */,
+				3E59876E2061879F0024F7F7 /* ModuleArchitectureDemo */,
+				3E5987832061879F0024F7F7 /* ModuleArchitectureDemoTests */,
+				3E59878E2061879F0024F7F7 /* ModuleArchitectureDemoUITests */,
 				3E59876D2061879F0024F7F7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,14 +99,14 @@
 		3E59876D2061879F0024F7F7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E59876C2061879F0024F7F7 /* APIClientArchitectureDemo.app */,
-				3E5987802061879F0024F7F7 /* APIClientArchitectureDemoTests.xctest */,
-				3E59878B2061879F0024F7F7 /* APIClientArchitectureDemoUITests.xctest */,
+				3E59876C2061879F0024F7F7 /* ModuleArchitectureDemo.app */,
+				3E5987802061879F0024F7F7 /* ModuleArchitectureDemoTests.xctest */,
+				3E59878B2061879F0024F7F7 /* ModuleArchitectureDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3E59876E2061879F0024F7F7 /* APIClientArchitectureDemo */ = {
+		3E59876E2061879F0024F7F7 /* ModuleArchitectureDemo */ = {
 			isa = PBXGroup;
 			children = (
 				3E6F83DF20657527004AF262 /* Helpers */,
@@ -120,25 +120,25 @@
 				3E59877B2061879F0024F7F7 /* Info.plist */,
 				3E6F83E6206958F7004AF262 /* NetworkService.swift */,
 			);
-			path = APIClientArchitectureDemo;
+			path = ModuleArchitectureDemo;
 			sourceTree = "<group>";
 		};
-		3E5987832061879F0024F7F7 /* APIClientArchitectureDemoTests */ = {
+		3E5987832061879F0024F7F7 /* ModuleArchitectureDemoTests */ = {
 			isa = PBXGroup;
 			children = (
 				3E5987842061879F0024F7F7 /* APIClientArchitectureDemoTests.swift */,
 				3E5987862061879F0024F7F7 /* Info.plist */,
 			);
-			path = APIClientArchitectureDemoTests;
+			path = ModuleArchitectureDemoTests;
 			sourceTree = "<group>";
 		};
-		3E59878E2061879F0024F7F7 /* APIClientArchitectureDemoUITests */ = {
+		3E59878E2061879F0024F7F7 /* ModuleArchitectureDemoUITests */ = {
 			isa = PBXGroup;
 			children = (
 				3E59878F2061879F0024F7F7 /* APIClientArchitectureDemoUITests.swift */,
 				3E5987912061879F0024F7F7 /* Info.plist */,
 			);
-			path = APIClientArchitectureDemoUITests;
+			path = ModuleArchitectureDemoUITests;
 			sourceTree = "<group>";
 		};
 		3E5987A3206188700024F7F7 /* Module Routing */ = {
@@ -170,9 +170,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3E59876B2061879F0024F7F7 /* APIClientArchitectureDemo */ = {
+		3E59876B2061879F0024F7F7 /* ModuleArchitectureDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E5987942061879F0024F7F7 /* Build configuration list for PBXNativeTarget "APIClientArchitectureDemo" */;
+			buildConfigurationList = 3E5987942061879F0024F7F7 /* Build configuration list for PBXNativeTarget "ModuleArchitectureDemo" */;
 			buildPhases = (
 				3E5987682061879F0024F7F7 /* Sources */,
 				3E5987692061879F0024F7F7 /* Frameworks */,
@@ -182,14 +182,14 @@
 			);
 			dependencies = (
 			);
-			name = APIClientArchitectureDemo;
+			name = ModuleArchitectureDemo;
 			productName = APIClientArchitectureDemo;
-			productReference = 3E59876C2061879F0024F7F7 /* APIClientArchitectureDemo.app */;
+			productReference = 3E59876C2061879F0024F7F7 /* ModuleArchitectureDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3E59877F2061879F0024F7F7 /* APIClientArchitectureDemoTests */ = {
+		3E59877F2061879F0024F7F7 /* ModuleArchitectureDemoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E5987972061879F0024F7F7 /* Build configuration list for PBXNativeTarget "APIClientArchitectureDemoTests" */;
+			buildConfigurationList = 3E5987972061879F0024F7F7 /* Build configuration list for PBXNativeTarget "ModuleArchitectureDemoTests" */;
 			buildPhases = (
 				3E59877C2061879F0024F7F7 /* Sources */,
 				3E59877D2061879F0024F7F7 /* Frameworks */,
@@ -200,14 +200,14 @@
 			dependencies = (
 				3E5987822061879F0024F7F7 /* PBXTargetDependency */,
 			);
-			name = APIClientArchitectureDemoTests;
+			name = ModuleArchitectureDemoTests;
 			productName = APIClientArchitectureDemoTests;
-			productReference = 3E5987802061879F0024F7F7 /* APIClientArchitectureDemoTests.xctest */;
+			productReference = 3E5987802061879F0024F7F7 /* ModuleArchitectureDemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3E59878A2061879F0024F7F7 /* APIClientArchitectureDemoUITests */ = {
+		3E59878A2061879F0024F7F7 /* ModuleArchitectureDemoUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E59879A2061879F0024F7F7 /* Build configuration list for PBXNativeTarget "APIClientArchitectureDemoUITests" */;
+			buildConfigurationList = 3E59879A2061879F0024F7F7 /* Build configuration list for PBXNativeTarget "ModuleArchitectureDemoUITests" */;
 			buildPhases = (
 				3E5987872061879F0024F7F7 /* Sources */,
 				3E5987882061879F0024F7F7 /* Frameworks */,
@@ -218,9 +218,9 @@
 			dependencies = (
 				3E59878D2061879F0024F7F7 /* PBXTargetDependency */,
 			);
-			name = APIClientArchitectureDemoUITests;
+			name = ModuleArchitectureDemoUITests;
 			productName = APIClientArchitectureDemoUITests;
-			productReference = 3E59878B2061879F0024F7F7 /* APIClientArchitectureDemoUITests.xctest */;
+			productReference = 3E59878B2061879F0024F7F7 /* ModuleArchitectureDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -249,7 +249,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3E5987672061879F0024F7F7 /* Build configuration list for PBXProject "APIClientArchitectureDemo" */;
+			buildConfigurationList = 3E5987672061879F0024F7F7 /* Build configuration list for PBXProject "ModuleArchitectureDemo" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -262,9 +262,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3E59876B2061879F0024F7F7 /* APIClientArchitectureDemo */,
-				3E59877F2061879F0024F7F7 /* APIClientArchitectureDemoTests */,
-				3E59878A2061879F0024F7F7 /* APIClientArchitectureDemoUITests */,
+				3E59876B2061879F0024F7F7 /* ModuleArchitectureDemo */,
+				3E59877F2061879F0024F7F7 /* ModuleArchitectureDemoTests */,
+				3E59878A2061879F0024F7F7 /* ModuleArchitectureDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -333,12 +333,12 @@
 /* Begin PBXTargetDependency section */
 		3E5987822061879F0024F7F7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3E59876B2061879F0024F7F7 /* APIClientArchitectureDemo */;
+			target = 3E59876B2061879F0024F7F7 /* ModuleArchitectureDemo */;
 			targetProxy = 3E5987812061879F0024F7F7 /* PBXContainerItemProxy */;
 		};
 		3E59878D2061879F0024F7F7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3E59876B2061879F0024F7F7 /* APIClientArchitectureDemo */;
+			target = 3E59876B2061879F0024F7F7 /* ModuleArchitectureDemo */;
 			targetProxy = 3E59878C2061879F0024F7F7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -480,9 +480,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JP9LNGT4C2;
-				INFOPLIST_FILE = APIClientArchitectureDemo/Info.plist;
+				INFOPLIST_FILE = ModuleArchitectureDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mdc.APIClientArchitectureDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = mdc.ModuleArchitectureDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -495,9 +495,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JP9LNGT4C2;
-				INFOPLIST_FILE = APIClientArchitectureDemo/Info.plist;
+				INFOPLIST_FILE = ModuleArchitectureDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mdc.APIClientArchitectureDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = mdc.ModuleArchitectureDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -517,7 +517,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/APIClientArchitectureDemo.app/APIClientArchitectureDemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModuleArchitectureDemo.app/ModuleArchitectureDemo";
 			};
 			name = Debug;
 		};
@@ -534,7 +534,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/APIClientArchitectureDemo.app/APIClientArchitectureDemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModuleArchitectureDemo.app/ModuleArchitectureDemo";
 			};
 			name = Release;
 		};
@@ -573,7 +573,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3E5987672061879F0024F7F7 /* Build configuration list for PBXProject "APIClientArchitectureDemo" */ = {
+		3E5987672061879F0024F7F7 /* Build configuration list for PBXProject "ModuleArchitectureDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E5987922061879F0024F7F7 /* Debug */,
@@ -582,7 +582,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E5987942061879F0024F7F7 /* Build configuration list for PBXNativeTarget "APIClientArchitectureDemo" */ = {
+		3E5987942061879F0024F7F7 /* Build configuration list for PBXNativeTarget "ModuleArchitectureDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E5987952061879F0024F7F7 /* Debug */,
@@ -591,7 +591,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E5987972061879F0024F7F7 /* Build configuration list for PBXNativeTarget "APIClientArchitectureDemoTests" */ = {
+		3E5987972061879F0024F7F7 /* Build configuration list for PBXNativeTarget "ModuleArchitectureDemoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E5987982061879F0024F7F7 /* Debug */,
@@ -600,7 +600,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E59879A2061879F0024F7F7 /* Build configuration list for PBXNativeTarget "APIClientArchitectureDemoUITests" */ = {
+		3E59879A2061879F0024F7F7 /* Build configuration list for PBXNativeTarget "ModuleArchitectureDemoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E59879B2061879F0024F7F7 /* Debug */,
