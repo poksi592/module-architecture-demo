@@ -24,11 +24,6 @@ struct ModuleConstants {
     }
 }
 
-enum Response {
-    
-    
-}
-
 enum ResponseError: Error {
     
     case serializationFailed

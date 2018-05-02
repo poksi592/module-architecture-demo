@@ -13,7 +13,7 @@ class NetworkService {
     func get(host: String,
              path: String,
              parameters: [String: Any]?,
-             completion: @escaping ([String: Any]?, Data?, HTTPURLResponse?, Error?) -> Void) {
+             completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
         
         guard let urlRequest = request(host: host, path: path, parameters: parameters) else {
             return
@@ -34,7 +34,7 @@ class NetworkService {
                     responseBody = nil
                 }
             }
-            completion(responseBody, data, urlResponse as? HTTPURLResponse, error)
+            completion(responseBody, urlResponse as? HTTPURLResponse, error)
             
         }.resume()
     }

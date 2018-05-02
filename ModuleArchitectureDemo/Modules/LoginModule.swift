@@ -8,6 +8,7 @@
 
 import Foundation
 
+// A simple way of formalising request parameters within a module
 enum LoginModuleParameters: String {
     
     case username
@@ -51,22 +52,10 @@ class ModuleRouter {
             
         case "/payment-token":
             
-            interactor.getPaymentToken(parameters: parameters) { [weak self] (token, error) in
-                
-                guard let strongSelf = self,
-                        let url = URL(schema: "tandem",
-                                      host: strongSelf.route,
-                                      path: path,
-                                      parameters: parameters) else {
-                    return
-                }
+            interactor.getPaymentToken(parameters: parameters) { (token, urlResponse, error) in
                 
                 if let token = token {
                     
-                    let urlResponse = HTTPURLResponse(url: url,
-                                                      statusCode: 200,
-                                                      httpVersion: nil,
-                                                      headerFields: nil)
                     let responseData = try? JSONSerialization.data(withJSONObject: [LoginModuleParameters.token.rawValue: token],
                                                                    options: JSONSerialization.WritingOptions.prettyPrinted)
                     let response = [LoginModuleParameters.token.rawValue: token]
@@ -87,9 +76,9 @@ class ModuleRouter {
 
 class LoginInteractor {
     
-    func getPaymentToken(parameters: ModuleParameters?, completion: @escaping (String?, Error?) -> Void) {
+    func getPaymentToken(parameters: ModuleParameters?, completion: @escaping (String?, HTTPURLResponse?, Error?) -> Void) {
         
-        let service = NetworkService()
+        let service = MockLoginNetworkService()
         guard let parameters = parameters,
                 let username = parameters[LoginModuleParameters.username.rawValue],
                 let password = parameters[LoginModuleParameters.password.rawValue] else {
@@ -99,7 +88,7 @@ class LoginInteractor {
                                   LoginModuleParameters.password.rawValue: password]
         service.get(host: "login",
                     path: "/login",
-                    parameters: getTokenParameters) { (response, data, urlResponse, error) in
+                    parameters: getTokenParameters) { (response, urlResponse, error) in
             
             // We are not going to check errors and URL response status codes, just a shortest path.
             var networkError: ResponseError? = nil
@@ -109,18 +98,10 @@ class LoginInteractor {
             
             let token = response?.filter { $0.key == "token"}.first?.value as? String
             
-            completion(token, networkError)
+            completion(token, urlResponse, networkError)
         }
         
     }
-    
-    
-//    func login(completion: @escaping (String?, Error?) -> Void) {
-//
-//        // Mocked login
-//        completion("c24r47y23847byv8374bv", nil)
-//
-//    }
 }
 
 class MockLoginNetworkService: NetworkService {
@@ -128,13 +109,33 @@ class MockLoginNetworkService: NetworkService {
     override func get(host: String,
                       path: String,
                       parameters: [String : Any]?,
-                      completion: @escaping ([String : Any]?, Data?, HTTPURLResponse?, Error?) -> Void) {
+                      completion: @escaping ([String : Any]?, HTTPURLResponse?, Error?) -> Void) {
         
         if let parameters = parameters,
             parameters[LoginModuleParameters.username.rawValue] as? String == "myUsername",
             parameters[LoginModuleParameters.password.rawValue] as? String == "myPassword" {
             
+            let url = URL(schema: "https",
+                          host: host,
+                          path: path,
+                          parameters: parameters as? [String : String])
+
+            let urlResponse = HTTPURLResponse(url: url!,
+                                              statusCode: 200,
+                                              httpVersion: nil,
+                                              headerFields: nil)
+            completion([LoginModuleParameters.token.rawValue: "hf120938h12983dh"], urlResponse, nil)
+        }
+        else {
             
+            let error = NSError.init(domain: "com.module.architecture.demo.network-errors",
+                                     code: 403,
+                                     userInfo: nil)
+            completion(nil, nil, error)
         }
     }
 }
+
+
+
+

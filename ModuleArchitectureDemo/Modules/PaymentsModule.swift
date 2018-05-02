@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+enum PaymentsModuleParameters: String {
+    
+    case amount
+    case token
+}
+
 class PaymentModule: ModuleType {
     
     var route: String = {
