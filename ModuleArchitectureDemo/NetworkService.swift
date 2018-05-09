@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+    
+    case GET
+    case POST
+}
+
 class NetworkService {
     
     func get(host: String,
@@ -15,10 +21,33 @@ class NetworkService {
              parameters: [String: Any]?,
              completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
         
-        guard let urlRequest = request(host: host, path: path, parameters: parameters) else {
+        guard let urlRequest = request(host: host,
+                                       path: path,
+                                       parameters: parameters) else {
             return
         }
         
+        http(urlRequest: urlRequest, completion: completion)
+    }
+    
+    func post(host: String,
+             path: String,
+             parameters: [String: Any]?,
+             completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
+        
+        guard let urlRequest = request(host: host,
+                                       path: path,
+                                       parameters: parameters,
+                                       httpMethod: HTTPMethod.POST.rawValue) else {
+            return
+        }
+        
+        http(urlRequest: urlRequest, completion: completion)
+    }
+    
+    private func http(urlRequest: URLRequest,
+                      completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
+    
         let configuration = URLSessionConfiguration.`default`
         configuration.protocolClasses?.append(URLRouter.self)
         let session = URLSession(configuration: configuration)
@@ -26,7 +55,7 @@ class NetworkService {
         session.dataTask(with: urlRequest) { (data, urlResponse, error) in
             
             var responseBody: [String: Any]? = nil
-
+            
             if let data = data {
                 do {
                     responseBody = try JSONSerialization.jsonObject(with: data) as? [String: Any]
@@ -36,12 +65,13 @@ class NetworkService {
             }
             completion(responseBody, urlResponse as? HTTPURLResponse, error)
             
-        }.resume()
+            }.resume()
     }
     
     private func request(host: String,
                          path: String,
-                         parameters: [String: Any]?) -> URLRequest? {
+                         parameters: [String: Any]?,
+                         httpMethod: String? = HTTPMethod.GET.rawValue) -> URLRequest? {
         
         var components = URLComponents()
         components.scheme = "tandem"
@@ -55,7 +85,10 @@ class NetworkService {
             return nil
         }
         
-        return URLRequest(url: requestUrl)
+        var urlRequest = URLRequest(url: requestUrl)
+        urlRequest.httpMethod = httpMethod
+        
+        return urlRequest
     }
 
 }

@@ -20,7 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // That wouldn't happen here in the real app, of course
         appServices.pay(amount: 123.00,
                         username: "myUsername",
-                        password: "myPassword")
+                        password: "myPassword",
+                        completion: {
+                            
+            let nonCompliantModule = NonCompliantModule()
+            nonCompliantModule.login(username: "myUsername",
+                                     password: "myPassword",
+                                     completion: { (bearerToken, error) in
+                                
+                print(String(describing: bearerToken))
+            })
+        })
         
         return true
     }

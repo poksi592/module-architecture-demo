@@ -121,33 +121,14 @@ protocol ApplicationRouterType: class {
     
     var instantiatedModules: [ModuleType] { get set }
     
+    func open(url: URL,
+              callback: ModuleCallback?)
+    
     
     var moduleQueue: DispatchQueue { get }
 }
 
 extension ApplicationRouterType {
-    
-//    func urlsSchemaExists(for schema: String, bundle: Bundle? = Bundle.main) -> Bool {
-//
-//        guard let bundle = bundle,
-//                let urlTypes = bundle.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] else {
-//            return false
-//        }
-//
-//        let filteredUrlTypes = urlTypes.flatMap({ urlType in
-//            
-//            return urlType.filter({ $0.key == "CFBundleURLSchemes"})
-//
-//        }).filter({$0.count > 0})
-//
-//
-//        guard let schemes = filteredUrlTypes.flatMap({$0}).first?.value as? [String],
-//                schemes.contains(schema) else {
-//            return false
-//        }
-//
-//        return true
-//    }
     
     func open(url: URL,
               callback: ModuleCallback?) {
@@ -189,7 +170,10 @@ class ApplicationServices {
     static let shared = ApplicationServices()
     let appRouter = ApplicationRouter()
     
-    func pay(amount: Double, username: String, password: String) {
+    func pay(amount: Double,
+             username: String,
+             password: String,
+             completion: @escaping (() -> Void)) {
         
         // Get payment token from `LoginModule` with `username` and `password`
         guard let moduleUrl = URL(schema: "tandem",
@@ -209,7 +193,11 @@ class ApplicationServices {
                                                    "amount": String(amount)]) else {
                                                     return
             }
-            self?.appRouter.open(url: moduleUrl, callback: nil)
+            self?.appRouter.open(url: moduleUrl) { (response, responseData, urlResponse, error) in
+                
+                // Final callback, basically just to synchronize our example here with the NonCompliantModule
+                completion()
+            }
         }
 
     }

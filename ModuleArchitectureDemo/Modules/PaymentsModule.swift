@@ -27,38 +27,59 @@ class PaymentModule: ModuleType {
                 "/refund"]
     }()
     
-    lazy var interactor = PaymentInteractor()
+    lazy var moduleRouter = PaymentsModuleRouter(route: route)
     
     func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
         
-        if path == "/pay" {
+        moduleRouter.route(parameters: parameters, path: path, callback: callback)
+    }
+}
+
+class PaymentsModuleRouter {
+    
+    lazy var interactor = PaymentInteractor()
+    let route: String
+    
+    init(route: String) {
+        
+        self.route = route
+    }
+    
+    func route(parameters: ModuleParameters?,
+               path: String?,
+               callback: ModuleCallback?) {
+        
+        switch path {
+        case "/pay":
             
-            // We won't make any efforts to make this part of architecture any better. For now.
-            // Let's assume each time we want to perform a payment, we need to get a token for it.
-            interactor.getPaymentToken { (token, error) in
+            interactor.pay(parameters: parameters) { (urlResponse, error) in
                 
-                if let token = token {
-                    
-                    let alert = UIAlertController(title: "Success",
-                                                  message: "Your payment with the token \(token) was successful without us even making one",
-                                                  preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .`default`))
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
+                callback?(nil, nil, urlResponse, error)
             }
+            
+        default:
+            return
         }
     }
 }
 
 class PaymentInteractor {
     
-    func getPaymentToken(completion: @escaping (String?, Error?) -> Void) {
+    func pay(parameters: ModuleParameters?,
+             completion: @escaping (HTTPURLResponse?, Error?) -> Void) {
         
-        let service = NetworkService()
-        let parameters = ["username": "myUsername",
-                          "password": "password123"]
-        service.get(host: "login", path: "/login", parameters: parameters) { (response, data, urlResponse, error) in
+        let service = MockPaymentsNetworkService()
+        guard let parameters = parameters,
+            let token = parameters[PaymentsModuleParameters.token.rawValue],
+            let amount = parameters[PaymentsModuleParameters.amount.rawValue] else {
+                return
+        }
+        let payParameters = [PaymentsModuleParameters.token.rawValue: token,
+                             PaymentsModuleParameters.amount.rawValue: amount]
+
+        service.post(host: "payments",
+                     path: "/pay",
+                     parameters: payParameters) { (response, urlResponse, error) in
             
             // We are not going to check errors and URL response status codes, just a shortest path.
             var networkError: ResponseError? = nil
@@ -66,11 +87,42 @@ class PaymentInteractor {
                 networkError = ResponseError(error: error, response: urlResponse)
             }
             
-            let token = response?.filter { $0.key == "token"}.first?.value as? String
-
-            completion(token, networkError)
+            completion(urlResponse, networkError)
         }
         
+    }
+}
+
+class MockPaymentsNetworkService: NetworkService {
+    
+    override func post(host: String,
+                       path: String,
+                       parameters: [String : Any]?,
+                       completion: @escaping ([String : Any]?, HTTPURLResponse?, Error?) -> Void) {
+        
+        // Just some basic validation, nothing fancy
+        if let parameters = parameters,
+            parameters[PaymentsModuleParameters.token.rawValue] as? String == "hf120938h12983dh",
+            parameters[PaymentsModuleParameters.amount.rawValue] as? String != "" {
+            
+            let url = URL(schema: "https",
+                          host: host,
+                          path: path,
+                          parameters: parameters as? [String : String])
+            
+            let urlResponse = HTTPURLResponse(url: url!,
+                                              statusCode: 201,
+                                              httpVersion: nil,
+                                              headerFields: nil)
+            completion([String: String](), urlResponse, nil)
+        }
+        else {
+            
+            let error = NSError.init(domain: "com.module.architecture.demo.network-errors",
+                                     code: 400,
+                                     userInfo: nil)
+            completion(nil, nil, error)
+        }
     }
 }
 
