@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 
 public typealias ModuleParameters = [String: String]
-public typealias ModuleCallback = ([String: Any]?, Data?, URLResponse?, Error?) -> Void
-
 
 struct ModuleConstants {
     
@@ -100,68 +98,6 @@ protocol ModuleType {
     func open(parameters: ModuleParameters?,
               path: String?,
               callback: ModuleCallback?)
-}
-
-
-/**
- Protocol defines application router, which function is
- 
- - setup application module
- - fire up the app with starting first module
- */
-protocol ApplicationRouterType: class {
-    
-//    /**
-//     Function returns application schema from Info.plist
-//
-//     - parameters:
-//     - bundle: if `nil`, then main Bundle is used
-//     */
-//    func urlsSchemaExists(for schema: String, bundle: Bundle?) -> Bool
-    
-    var instantiatedModules: [ModuleType] { get set }
-    
-    func open(url: URL,
-              callback: ModuleCallback?)
-    
-    
-    var moduleQueue: DispatchQueue { get }
-}
-
-extension ApplicationRouterType {
-    
-    func open(url: URL,
-              callback: ModuleCallback?) {
-        
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                let route = components.host else {
-                return
-        }
-        
-        guard let module = instantiatedModules.filter({ $0.route == route }).first,
-                let path = module.paths.filter({ $0 == url.path }).first else {
-            return
-        }
-        
-        module.open(parameters: components.queryItemsDictionary, path: path) { (response, data, urlResponse, error) in
-            
-            print("awefwqef")
-        }
-        
-    }
-}
-
-class ApplicationRouter: ApplicationRouterType {
-    
-    // TODO: This is synchronising only write access, which might be inadequate in many cases
-    // Need to be replaced with proper full generic implementation of synchronized collection
-    private (set) var moduleQueue = DispatchQueue(label: "com.tandem.module.queue")
-    
-    // ApplicationRouter is a singleton, because it makes it easier to be accessed from anywhere to access its functions/services
-    static let shared = ApplicationRouter()
-
-    var instantiatedModules: [ModuleType] = [PaymentModule(),
-                                            LoginModule()]
 }
 
 class ApplicationServices {

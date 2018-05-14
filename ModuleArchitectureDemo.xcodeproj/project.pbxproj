@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E3FE53B20A9BADC000C3783 /* ApplicationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */; };
 		3E5987702061879F0024F7F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59876F2061879F0024F7F7 /* AppDelegate.swift */; };
 		3E5987722061879F0024F7F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5987712061879F0024F7F7 /* ViewController.swift */; };
 		3E5987752061879F0024F7F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E5987732061879F0024F7F7 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationRouter.swift; sourceTree = "<group>"; };
 		3E59876C2061879F0024F7F7 /* ModuleArchitectureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModuleArchitectureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59876F2061879F0024F7F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E5987712061879F0024F7F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +115,7 @@
 			children = (
 				3E6F83DF20657527004AF262 /* Helpers */,
 				3E5987A620618A290024F7F7 /* Modules */,
-				3E5987A3206188700024F7F7 /* Module Routing */,
+				3E5987A3206188700024F7F7 /* Routing */,
 				3E59876F2061879F0024F7F7 /* AppDelegate.swift */,
 				3E5987712061879F0024F7F7 /* ViewController.swift */,
 				3E5987732061879F0024F7F7 /* Main.storyboard */,
@@ -143,12 +145,13 @@
 			path = ModuleArchitectureDemoUITests;
 			sourceTree = "<group>";
 		};
-		3E5987A3206188700024F7F7 /* Module Routing */ = {
+		3E5987A3206188700024F7F7 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
 				3E5987A42061889B0024F7F7 /* ModuleHub.swift */,
+				3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */,
 			);
-			path = "Module Routing";
+			path = Routing;
 			sourceTree = "<group>";
 		};
 		3E5987A620618A290024F7F7 /* Modules */ = {
@@ -305,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E5987A52061889B0024F7F7 /* ModuleHub.swift in Sources */,
+				3E3FE53B20A9BADC000C3783 /* ApplicationRouter.swift in Sources */,
 				3E6F83E32066AA6E004AF262 /* Bundle.swift in Sources */,
 				3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */,
 				3E5987722061879F0024F7F7 /* ViewController.swift in Sources */,
