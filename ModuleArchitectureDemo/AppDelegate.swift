@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         password: "myPassword",
                         completion: {
                             
-            let nonCompliantModule = NonCompliantModule()
+            let nonCompliantModule = NonConformingModule()
             nonCompliantModule.login(username: "myUsername",
                                      password: "myPassword",
                                      completion: { (bearerToken, error) in

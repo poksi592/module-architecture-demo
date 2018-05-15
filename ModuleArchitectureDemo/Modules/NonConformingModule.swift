@@ -1,5 +1,5 @@
 //
-//  NonCompliantModule.swift
+//  NonConformingModule.swift
 //  ModuleArchitectureDemo
 //
 //  Created by Mladen Despotovic on 05/05/2018.
@@ -8,14 +8,15 @@
 
 import Foundation
 
-class NonCompliantModule {
+class NonConformingModule {
     
     func login(username: String,
                password: String,
                completion: ((String?, Error?) -> Void)?) {
         
         let service = NetworkService()
-        service.post(host: "login",
+        service.post(scheme: "tandem",
+                     host: "login",
                      path: "/login",
                      parameters: ["username": "myUsername",
                                   "password": "myPassword"]) { (response, urlResponse, error) in

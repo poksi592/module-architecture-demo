@@ -16,37 +16,41 @@ enum HTTPMethod: String {
 
 class NetworkService {
     
-    func get(host: String,
+    func get(scheme: String? = nil,
+             host: String,
              path: String,
              parameters: [String: Any]?,
              completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
         
-        guard let urlRequest = request(host: host,
+        guard let urlRequest = request(scheme: scheme,
+                                       host: host,
                                        path: path,
                                        parameters: parameters) else {
             return
         }
         
-        http(urlRequest: urlRequest, completion: completion)
+        service(urlRequest: urlRequest, completion: completion)
     }
     
-    func post(host: String,
-             path: String,
-             parameters: [String: Any]?,
-             completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
+    func post(scheme: String? = nil,
+              host: String,
+              path: String,
+              parameters: [String: Any]?,
+              completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
         
-        guard let urlRequest = request(host: host,
+        guard let urlRequest = request(scheme: scheme,
+                                       host: host,
                                        path: path,
                                        parameters: parameters,
                                        httpMethod: HTTPMethod.POST.rawValue) else {
             return
         }
         
-        http(urlRequest: urlRequest, completion: completion)
+        service(urlRequest: urlRequest, completion: completion)
     }
     
-    private func http(urlRequest: URLRequest,
-                      completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
+    private func service(urlRequest: URLRequest,
+                         completion: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Void) {
     
         let configuration = URLSessionConfiguration.`default`
         configuration.protocolClasses?.append(URLRouter.self)
@@ -68,13 +72,14 @@ class NetworkService {
             }.resume()
     }
     
-    private func request(host: String,
+    private func request(scheme: String? = nil,
+                         host: String,
                          path: String,
                          parameters: [String: Any]?,
                          httpMethod: String? = HTTPMethod.GET.rawValue) -> URLRequest? {
         
         var components = URLComponents()
-        components.scheme = "tandem"
+        components.scheme = scheme ?? "http"
         components.host = host
         components.path = path
         
@@ -90,7 +95,6 @@ class NetworkService {
         
         return urlRequest
     }
-
 }
 
 

@@ -37,12 +37,12 @@ class LoginModule: ModuleType {
     }
 }
 
-class LoginModuleRouter {
-    
+class LoginModuleRouter: ModuleRouter {
+
     lazy var interactor = LoginInteractor()
-    let route: String
+    internal var route: String
     
-    init(route: String) {
+    required init(route: String) {
         
         self.route = route
     }
@@ -152,7 +152,8 @@ class LoginInteractor {
 
 class MockLoginNetworkService: NetworkService {
     
-    override func post(host: String,
+    override func post(scheme: String? = nil,
+                       host: String,
                        path: String,
                        parameters: [String : Any]?,
                        completion: @escaping ([String : Any]?, HTTPURLResponse?, Error?) -> Void) {

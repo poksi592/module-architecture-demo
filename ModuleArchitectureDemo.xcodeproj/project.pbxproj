@@ -15,9 +15,9 @@
 		3E59877A2061879F0024F7F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E5987782061879F0024F7F7 /* LaunchScreen.storyboard */; };
 		3E5987852061879F0024F7F7 /* APIClientArchitectureDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5987842061879F0024F7F7 /* APIClientArchitectureDemoTests.swift */; };
 		3E5987902061879F0024F7F7 /* APIClientArchitectureDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59878F2061879F0024F7F7 /* APIClientArchitectureDemoUITests.swift */; };
-		3E5987A52061889B0024F7F7 /* ModuleHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5987A42061889B0024F7F7 /* ModuleHub.swift */; };
+		3E5987A52061889B0024F7F7 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5987A42061889B0024F7F7 /* Module.swift */; };
 		3E5987A820618A6C0024F7F7 /* LoginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5987A720618A6C0024F7F7 /* LoginModule.swift */; };
-		3E5DD5A4209D9D9E00B556C0 /* NonCompliantModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD5A3209D9D9E00B556C0 /* NonCompliantModule.swift */; };
+		3E5DD5A4209D9D9E00B556C0 /* NonConformingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD5A3209D9D9E00B556C0 /* NonConformingModule.swift */; };
 		3E6F83E12065756F004AF262 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E02065756F004AF262 /* URLExtensions.swift */; };
 		3E6F83E32066AA6E004AF262 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E22066AA6E004AF262 /* Bundle.swift */; };
 		3E6F83E52068C5D3004AF262 /* PaymentsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E42068C5D3004AF262 /* PaymentsModule.swift */; };
@@ -56,9 +56,9 @@
 		3E59878B2061879F0024F7F7 /* ModuleArchitectureDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModuleArchitectureDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59878F2061879F0024F7F7 /* APIClientArchitectureDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientArchitectureDemoUITests.swift; sourceTree = "<group>"; };
 		3E5987912061879F0024F7F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E5987A42061889B0024F7F7 /* ModuleHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleHub.swift; sourceTree = "<group>"; };
+		3E5987A42061889B0024F7F7 /* Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		3E5987A720618A6C0024F7F7 /* LoginModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModule.swift; sourceTree = "<group>"; };
-		3E5DD5A3209D9D9E00B556C0 /* NonCompliantModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonCompliantModule.swift; sourceTree = "<group>"; };
+		3E5DD5A3209D9D9E00B556C0 /* NonConformingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonConformingModule.swift; sourceTree = "<group>"; };
 		3E6F83E02065756F004AF262 /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		3E6F83E22066AA6E004AF262 /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		3E6F83E42068C5D3004AF262 /* PaymentsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsModule.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 		3E5987A3206188700024F7F7 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
-				3E5987A42061889B0024F7F7 /* ModuleHub.swift */,
+				3E5987A42061889B0024F7F7 /* Module.swift */,
 				3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */,
 			);
 			path = Routing;
@@ -159,7 +159,7 @@
 			children = (
 				3E5987A720618A6C0024F7F7 /* LoginModule.swift */,
 				3E6F83E42068C5D3004AF262 /* PaymentsModule.swift */,
-				3E5DD5A3209D9D9E00B556C0 /* NonCompliantModule.swift */,
+				3E5DD5A3209D9D9E00B556C0 /* NonConformingModule.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -307,13 +307,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E5987A52061889B0024F7F7 /* ModuleHub.swift in Sources */,
+				3E5987A52061889B0024F7F7 /* Module.swift in Sources */,
 				3E3FE53B20A9BADC000C3783 /* ApplicationRouter.swift in Sources */,
 				3E6F83E32066AA6E004AF262 /* Bundle.swift in Sources */,
 				3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */,
 				3E5987722061879F0024F7F7 /* ViewController.swift in Sources */,
 				3E6F83E12065756F004AF262 /* URLExtensions.swift in Sources */,
-				3E5DD5A4209D9D9E00B556C0 /* NonCompliantModule.swift in Sources */,
+				3E5DD5A4209D9D9E00B556C0 /* NonConformingModule.swift in Sources */,
 				3E5987702061879F0024F7F7 /* AppDelegate.swift in Sources */,
 				3E6F83E52068C5D3004AF262 /* PaymentsModule.swift in Sources */,
 				3E5987A820618A6C0024F7F7 /* LoginModule.swift in Sources */,
