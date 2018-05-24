@@ -11,13 +11,28 @@ import UIKit
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        title = "Main Screen"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func toPayments() {
+        
+        guard let moduleUrl = URL(schema: "tandem",
+                                  host: "payments",
+                                  path: "/pay",
+                                  parameters: ["storyboard": "PaymentsStoryboard",
+                                               "presentationMode": "navigationStack"])  else { return }
+        
+        ApplicationRouter.shared.open(url: moduleUrl) { (response, responseData, urlResponse, error) in
+            
+            //      completion()
+        }
     }
 
 

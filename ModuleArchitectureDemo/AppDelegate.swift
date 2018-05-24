@@ -17,20 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let appServices = ApplicationServices.shared
         
-        // That wouldn't happen here in the real app, of course
-        appServices.pay(amount: 123.00,
-                        username: "myUsername",
-                        password: "myPassword",
-                        completion: {
-                            
-            let nonCompliantModule = NonConformingModule()
-            nonCompliantModule.login(username: "myUsername",
-                                     password: "myPassword",
-                                     completion: { (bearerToken, error) in
-                                
-                print(String(describing: bearerToken))
-            })
-        })
+//        // That wouldn't happen here in the real app, of course
+//        appServices.pay(amount: 123.00,
+//                        username: "myUsername",
+//                        password: "myPassword",
+//                        completion: {
+//                            
+//            let nonCompliantModule = NonConformingModule()
+//            nonCompliantModule.login(username: "myUsername",
+//                                     password: "myPassword",
+//                                     completion: { (bearerToken, error) in
+//                                
+//                print(String(describing: bearerToken))
+//            })
+//        })
         
         return true
     }

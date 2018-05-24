@@ -15,7 +15,11 @@ enum PaymentsModuleParameters: String {
     case token
 }
 
-class PaymentModule: ModuleType {
+class PaymentModule: ModuleType, StoryboardModuleType {
+    
+    // We use the default storyboard, which can be changed later by injected parameter
+    lazy var storyboard: UIStoryboard = UIStoryboard(name: "PaymentsStoryboard", bundle: nil)
+    var presentationMode: ModulePresentationMode = .none
     
     var route: String = {
         return "payments"
@@ -30,8 +34,19 @@ class PaymentModule: ModuleType {
     lazy var moduleRouter = PaymentsModuleRouter(route: route)
     
     func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
-        
+    
+        setup(parameters: parameters)
         moduleRouter.route(parameters: parameters, path: path, callback: callback)
+    }
+    
+    func setup(parameters: ModuleParameters?) {
+        
+        if let storyboardName = parameters?[ModuleConstants.UrlParameter.storyboard] {
+            storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        }
+        
+        setPresentationMode(from: parameters)
+        present(viewController: initialViewController(from: parameters))
     }
 }
 

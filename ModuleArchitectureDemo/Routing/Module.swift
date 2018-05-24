@@ -16,9 +16,8 @@ struct ModuleConstants {
     struct UrlParameter {
         
         static let viewController = "viewController"
-        static let selectedTab = "tabIndex"
-        static let path = "path"
         static let presentationMode = "presentationMode"
+        static let storyboard = "storyboard"
     }
 }
 

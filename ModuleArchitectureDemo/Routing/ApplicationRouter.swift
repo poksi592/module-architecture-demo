@@ -97,7 +97,7 @@ class ApplicationServices {
                     return
             }
             self?.appRouter.open(url: moduleUrl) { (response, responseData, urlResponse, error) in
-                
+
                 // Final callback, basically just to synchronize our example here with the NonCompliantModule
                 completion()
             }
