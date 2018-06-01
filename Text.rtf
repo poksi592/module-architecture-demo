@@ -1,0 +1,279 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww19160\viewh13220\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 SOLID?\
+\
+Well, yes. Regardless of development paradigms and forms, we adhere to and comply with some basic principles of OOP, which we try to follow as much as possible to create the code that will get as close as possible to the technical and organisational goals. Which are such goals? I would think of at least of the ones below:\
+\
+- easy to read\
+- easy to understand\
+- easy to maintain\
+- easy to debug\
+- easy to test\
+- easy to change\
+- easy to swap parts\
+- easy to add different scenarios\
+- easy to extend existing functionality\
+- easy to add new functionality\
+\
+Gosh, everything needs to be easy nowadays..  Are we lazy or something? No, it\'92s all about making our business to run efficiently during the code lifecycle and lifetime, actually.\
+\
+Single Responsibility principle is probably one of the most used and abused. It\'92s most important principle to reach most of the goals above to the certain degree. However, on its own, it has limitations which prevent us to progress from better code to great.\
+\
+Its opposite is monolithic code, which old definitions argue to be more efficient, than fragmented, less coupled, but that would be the case only if we observe speed of execution, which is becoming the least important aspect of app development and delivery, so I won\'92t spend any time to reason anything, I think the picture is generally clear to all of us. \
+\
+\
+From Coupled to Loosely Coupled and finally to Decoupled\
+\
+Following Single Responsibility principle will fragment our code (in a positive way) into separate, let\'92s say, modules, classes, functions even, which would definitively make our code: \
+\
+- easy to read\
+- easy to understand,\
+- easy to maintain,\
+- easy to debug,\
+\
+but sometimes not so:\
+\
+- easy to test\
+- easy to change,\
+\
+and definitively not at all easy to:\
+\
+- swap parts\
+- add different scenarios\
+- extend existing functionality\
+- add new functionality\
+\
+\
+Coupled: Functionality is distributed through several classes, but types are explicitly referenced:\
+\
+\
+Definitively not so easy to test, because it may prove that some types will not be easy to create mocks for. Still, not critical and still manageable in terms of testing.\
+Changes are still manageable as long as they are contained in a class. As soon as we want to introduce changes to the whole types, we can get into the trouble, because we shall have to change the code in other classes which references them.\
+If we would want to add different scenarios, we would have to resort to if-else and switch statements, type checking, flag checking, all the nasty stuff\'85\
+\
+\
+Loosely coupled: Classes are connected through interfaces/protocols\
+\
+This more or less solves all the issues above. We can definitely mock with ease, we can inject actual implementation to a calling object through the interface, thus implementing different scenarios with strategy pattern, apply abstract factories, \'85 all the goodies of OOP.\
+\
+We solve all the issues \'85.  within the same platform/app/system.\
+\
+\
+Decoupled: Systems connect through protocols, ruled by conventions, generic and app specific.\
+\
+Nice examples of the above are for example HTTP, REST, Microservices. The difference is, we don\'92t talk about the single system anymore, we talk about distributed systems, heterogeneous in terms of technologies used, actually, technologies don\'92t matter anymore, it\'92s only about the messages and convention which defines their payload, it's a vocabulary, dictionary, which is recognised by both.\
+\
+Fine. About what does this have to do with the apps and client architecture? Well, it has. Most of you have already implemented deep links in your app and you could see, how a URL request, formed upon convention was deconstructed and used to activate and call exactly the functionality/classes, that it needed, thus basically establish unilateral connection between your email or web page and your classes in your app, which effectively become URL resource. Magical isn\'92t it?! :)\
+\
+\
+URL\
+\
+The name says it all: it\'92s universal address of the resource. Add HTTP/REST and you have a convention to asynchronously pass requests and responses between resources. \
+\
+\
+Separation of concerns in your app\
+\
+I guess there are many ways on a different level, but I guess it makes sense to start separating the concerns on the feature streams, feature clusters, let us call them feature modules, or short: modules.\
+You can easily imagine a simple banking app, which would have modules like:\
+\
+- login\
+- transaction list\
+- payments\
+- \'85\
+\
+Now, imagine:\
+- you\'92d want to access any of these features/modules independently through deep links.\
+- some of these modules/services might have dependencies between each other\
+- that you might use different modules for the same purpose ( using password-based login module or TouchID/FaceID/PIN-based, for example)\
+- you want to totally encapsulate all functionality in every module, thus making app completely modular and turn modules into the building blocks with its own communication convention/protocol.\
+\
+Now, that\'92s a loooong wish list!\
+\
+\
+Application Router to the rescue\
+\
+This is probably the point, where we shall start to materialise all our previous findings and wishes. \
+What is Application Router? It\'92s a class. It\'92s a singleton even!!! \
+It\'92s very short and lean. It\'92s storage are \'91registered\'92 classes, which means the classes it knows about and are compliant to certain protocols which makes them at least to identify themselves. All the Application Router does is:\
+\
+- receiving valid URL request\
+- finding Module, which will respond to the host from the URL\
+- call this module with the path, which represents the function/method and potential parameters\
+- return callback with URLResponse, eventual response dictionary and eventual Error\
+\
+Sounds almost like an RESTful API router, doesn\'92t it? Well, it almost is. But it\'92s even more generic, it\'92s more like a URL router.\
+\
+Code is pretty much simple: we have a property as collection of registered ModuleTypes and function to open module, both defined in ApplicationRouterType.\
+\
+\
+How about the Module? What is Module, anyway?\
+\
+Module is a simple class, which represents a gateway between a group of types that perform a set of tasks that define a common global functionality on an app level, we could call it: a service and the rest of the app (like other modules) and outside world (like deep links) and even other technologies bundled in the app (like React Native).\
+\
+Sounds pretty much attractive. Sounds almost like a Swiss knife\'85 \
+Protocol ModuleType pretty much defines everything what needs to work in it: \
+\
+- route String, which uniquely identifies the module and map to the host from the URL\
+- collection of paths, which uniquely identify all the functions of the module and map to the path from the URL\
+- open function which is a simple gateway to the module, providing route, path, parameters and give back the response in form of standard URL session.\
+\
+\
+Module Router Class\
+\
+We want to keep our Module class as lean as possible. It should be merely a gateway to what the module can offer.\
+As with Application, we need Router for a module, too. ModuleRouter then becomes a standard member of module architecture and all it does is calling other objects within the module architecture, based on path from the URL.\
+\
+\
+\'85 one more thing?\
+\
+Yes. Well, does our app contain only modules? It could mostly contain only modules calling each other. But if we go back a bit when we described their role, modules seems more like services, which provide certain functionality. They could be dependent on each other, but there also might be need to orchestrate them and even queue them sometimes.\
+\
+That\'92s why we introduced a class called ApplicationServices, which exposes full services to any part of our app. In our case, we simply call pay service from Application Delegate, but you can get an idea, how this might work in many other scenarios, of course.\
+\
+\'85 one last thing?\
+\
+There\'92s something I\'92d like to mention. So, imagine you have the code that for whatever reason, you don\'92t want to wrap into modules, thus making it easy  for further integration. It could be even your Javascript code in React Native part of your app, if you have hybrid app, for example. \
+I still think that it\'92s very easy to wrap something that implements 2 things, but in the case, we don\'92t want to, there\'92s simple solution, demonstrated in NonCompliantModule.\
+\
+Instead of using Application Router, we have simply called an API through URLSession in out NetworkService. \
+Beside that, we have created URLRouter class, which implements URLProtocol. You might remember this class, which is used for creating REST stubs in most of the mocking libraries.\
+In our case, this class will read the schema from the URLRequest and if the latter contains an internal schema, like \'91tandem\'92 in our case, which we have set in Info.plist, then this class will intercept this call within canInit(with function and call Application Router. \
+\
+In case of NonCompliantModule, we can see that it calls \'91/login\'92 method in \'91login\'92 module same as it would call any other REST resource with the only difference that it calls it through \'91tandem rather than \'91http\'92 schema.\
+\
+\
+Next step will be showing, how can we work within the modules.\
+\
+\
+\
+Non-Conforming Modules\
+\
+\
+It may happen, that we will have to include in our project the code, which doesn\'92t comply with the architecture we are presenting in this series. Reasons might be various: we might have legacy code, badly separated by concerns, perhaps we have React Native bridging with a lot of already written Javascript code, for which we have no possibility to change interfacing to the Native side, etc.\
+\
+This chapter will show, how we shall use URLProtocol and iOS\'92s simple URL Loading system to turn our modules into classic HTTP API thus making our modules open and compatible with any code in the same way as we would do it for deep links outside the app.\
+\
+A simple Network Service\
+\
+We have created a simple NetworkService class, which provides us with two exposed functions get and post. Besides that, we have two private functions. First, the request is pretty much obvious. The only thing that seems a bit fishy is the scheme parameter. It\'92s handled pretty much simply: if no scheme is passed as a parameter, then it\'92s set the default to \'91http\'92. We are happy with this for now.\
+\
+Then we have the service function since we are reusing this code it in both HTTP methods, get and post. But there is one line of code, which makes all this very interesting: configuration.protocolClasses?.append(URLRouter.self). This method of URLSessionConfiguration gives the possibility to register our own class URLRouter which implements URLProtocol. Let\'92 see why is this needed.\
+\
+\
+URLRouter\
+\
+This is our implementation of 2 protocols: URLSessionDataDelegate, URLSessionTaskDelegate and above all, subclassing the abstract class URLProtocol (which doesn\'92t have the best name, perhaps). For all of you, who have ever used old mocking framework for testing URL connections, URLProtocol was usually used for it. Many of us used it directly ourselves, to create our own network stubbing infrastructure. I won\'92t go too much into details, because there\'92s quite a lot written about it already, but let me just explain the role of this protocol in our example. \
+So, what we do with the URLRouter is very simple:\
+\
+* check in override class func canInit(with task: URLSessionTask) -> Bool if URLRequest from the task has the schema, which matches our internal schema, which we defined in previous chapter\
+* then we check if URL contains host and path that have a match in our ApplicationRouter\
+* if the check is positive, then URLLoading system calls our override func startLoading() function, where we simply call an appropriate module through are ApplicationRouter and job done!\
+\
+Well, not completely, so, we haven\'92t created the returning response boilerplate here, but that is not the most important right now. So, what is the next step? Well, the \'91naughty\'92 module, I guess!\
+\
+\
+Non-conforming Module\
+\
+We have created a very simple class, called NonConformingModule, which doesn\'92t implement any of the architecture, we were talking about in this series from the first chapter onwards. The only thing it does is the login to get bearerToken and this is where the login function in LoginModuleRouter is used, which we mentioned before. The only thing we need to do is to instantiate this module and call login function and the following will happen:\
+\
+* NonConformingModule calls directly Networking service as a normal HTTP request, but it passes \'91tandem\'92 as schema and parameters for /login method of login module\
+* NetworkService calls to iOS\'92s URL loading system in the same way as it would for any other HTTP request.\
+* Registered URLRouter class intercepts the URLSessionTask, sees scheme from URL matches an internal one and confirms interception and creates the instance of itself\
+* URLRouter calls ApplicationRouter with URL, which opens LoginModule the latter calls LogineModuleRouter and the rest you already know\'85\
+\
+This is a showcase, how the URL as a universal access object can be used directly through URL Loading system to access our Module Architecture infrastructure. \
+\
+\
+\
+StoryboardModule\
+\
+\
+View controllers and navigation controllers can have a lot of different ways how to get initialised, setup, styled and customised\
+\
+Injecting the storyboard:\
+\
+1. Storyboard can be part of the module itself\
+\
+True. Also explicitly referenced. For modules that will change very little if at all, used in different apps, this might make sense. It might offer some different fixed styling options, which could be exposed as parameter in module contract, in terms of fonts and colour schema, but this might become too limited too soon.\
+\
+2. Storyboard is part of the app\
+\
+Storyboard is still referred with the fixed ID from the code in the module, but the storyboard is provided from the main app and developer has all the freedom of using different styles and even View Controller classes in some places, if necessary.\
+\
+3. Storyboard ID is passed to module as a parameter.\
+\
+This option is most flexible. We can create not only our own Storyboard, but also more of them and inject them to the module when we call it by passing the storyboard ID. We have complete freedom of what to do with styling, injecting our own styling classes, using our own subclasses of UINavigationController and UIViewController. This means hat our module can actually have its default Storyboard, but we can inject our own if we like. It\'92s even more than than that: we could inject different storyboards from different user workflows!\
+That will also be the our choice in the code example which will continue our existing project. \
+\
+\
+Injecting the Initial View Controller\
+\
+This option can be pretty much flexible as well. \
+\
+1. Initial View Controller ID is not passed as a parameter.\
+\
+Storyboard uses simply the default initial view controller from its .nib file\
+\
+2. We pass the initial view controller ID as a parameter\
+\
+Storyboard initialised the View controlled identified by a passed parameter. If it\'92s not found, it can simply default to the one from its .nib file.\
+\
+View Controller in the storyboard can of course already have a lot of customisations made, like styling, it can also inject objects through .nib file, especially styling objects, for example.\
+\
+\
+\
+Presentation mode\
+\
+We understand now, how and where from shall we instantiate initial view controller, but that\'92s not the end of the story. We have really many, many ways, how to present a view controller. Let\'92s just see a few:\
+\
+- pure full screen modal\
+- modal wrapped in Navigation Controller\
+- modal of customised dimensions\
+- pushed on the current navigation stack\
+- instantiated in tab bar controller\
+- \'85\
+\
+We could, of course, go deeper and talk about many derivatives of the above, but let\'92s settle with what we have found out already.\
+\
+The question which arises to me first here is how to keep decoupled architecture and still create and present module\'92s own view controllers with relation to the ones that the module should obviously not be aware about or reference them through specific type (base condition to keep our module decoupled and highly reusable). We also need to understand that initial view controller from one specific module is part of module\'92s own storyboard and definitively has no idea about who should present it. Moreover, this can differ regarding to the module/service which opened the module anyway. Same module can be opened from different parts of app and therefore its view controller can be presented/pushed each time by another different one\'85\
+\
+As much as this sounds complex or even impossible it\'92s kind of relatively easy to implement it. This is the list of potential solutions:\
+\
+- modal view controllers can be simply presented either from rootViewController, topViewController from the topmost UINavigationController in the stack from rootViewController onwards or basically from anywhere else\
+- view controller can be simply pushed either to the topmost UINavigationController in the stack from rootViewController or we could simply push new view controller to the app specific UINavigationController which is not a problem, because StoryboardModuleType will have this implementation in its extension thus independent of the module.\
+- it can be also instantiated within tab view controller, which is same as the above app specific, thus the StoryboardModuleType extension can implement it referring to the app specyfic type, leaving modules decoupled from it again\
+\
+Our example will use modal presentation to implement LoginModule.\
+\
+\
+XXX\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
