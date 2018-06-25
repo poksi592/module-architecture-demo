@@ -31,14 +31,8 @@ class PaymentModule: ModuleType, StoryboardModuleType {
                 "/refund"]
     }()
     
-    lazy var moduleRouter = PaymentsModuleRouter(route: route)
-    
-    func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
-    
-        setup(parameters: parameters)
-        moduleRouter.route(parameters: parameters, path: path, callback: callback)
-    }
-    
+    var subscribedRoutables: [ModuleRoutable.Type] = [PaymentInteractor.self]
+
     func setup(parameters: ModuleParameters?) {
         
         if let storyboardName = parameters?[ModuleConstants.UrlParameter.storyboard] {
@@ -50,35 +44,23 @@ class PaymentModule: ModuleType, StoryboardModuleType {
     }
 }
 
-class PaymentsModuleRouter: ModuleRouter {
+class PaymentInteractor: ModuleRoutable {
     
-    lazy var interactor = PaymentInteractor()
-    internal var route: String
-    
-    required init(route: String) {
-        
-        self.route = route
+    static func routable() -> ModuleRoutable {
+        return self.init()
     }
     
-    func route(parameters: ModuleParameters?,
-               path: String?,
-               callback: ModuleCallback?) {
+    static func getPaths() -> [String] {
+        return ["/pay"]
+    }
+    
+    func route(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
         
-        switch path {
-        case "/pay":
+        pay(parameters: parameters)  { (urlResponse, error) in
             
-            interactor.pay(parameters: parameters) { (urlResponse, error) in
-                
-                callback?(nil, nil, urlResponse, error)
-            }
-            
-        default:
-            return
+            callback?(nil, nil, urlResponse, error)
         }
     }
-}
-
-class PaymentInteractor {
     
     func pay(parameters: ModuleParameters?,
              completion: @escaping (HTTPURLResponse?, Error?) -> Void) {

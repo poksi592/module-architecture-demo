@@ -19,6 +19,8 @@ enum LoginModuleParameters: String {
 
 class LoginModule: ModuleType {
     
+    func setup(parameters: ModuleParameters?) {}
+
     var route: String = {
             return "login"
     }()
@@ -29,22 +31,19 @@ class LoginModule: ModuleType {
                 "/payment-token"]
     }()
     
-    lazy var moduleRouter = LoginModuleRouter(route: route)
-    
-    func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
-        
-        moduleRouter.route(parameters: parameters, path: path, callback: callback)
-    }
+    var subscribedRoutables: [ModuleRoutable.Type] = [LoginInteractor.self]
 }
 
-class LoginModuleRouter: ModuleRouter {
 
-    lazy var interactor = LoginInteractor()
-    internal var route: String
+class LoginInteractor: ModuleRoutable {
     
-    required init(route: String) {
-        
-        self.route = route
+    static func routable() -> ModuleRoutable {
+        return self.init()
+    }
+    
+    static func getPaths() -> [String] {
+        return ["/payment-token",
+                "/login"]
     }
     
     func route(parameters: ModuleParameters?,
@@ -55,14 +54,12 @@ class LoginModuleRouter: ModuleRouter {
             
         case "/payment-token":
             
-            interactor.getPaymentToken(parameters: parameters) { (token, urlResponse, error) in
+            getPaymentToken(parameters: parameters) { (token, urlResponse, error) in
                 
                 if let token = token {
-                    
-                    let responseData = try? JSONSerialization.data(withJSONObject: [LoginModuleParameters.paymentToken.rawValue: token],
-                                                                   options: JSONSerialization.WritingOptions.prettyPrinted)
+
                     let response = [LoginModuleParameters.paymentToken.rawValue: token]
-                    callback?(response, responseData, urlResponse, nil)
+                    callback?(response,  nil, urlResponse, nil)
                 }
                 else {
                     
@@ -70,17 +67,15 @@ class LoginModuleRouter: ModuleRouter {
                     callback?(nil, nil, nil, error)
                 }
             }
-        
+            
         case "/login":
             
-            interactor.login(parameters: parameters) { (token, urlResponse, error) in
+            login(parameters: parameters) { (token, urlResponse, error) in
                 
                 if let token = token {
-                    
-                    let responseData = try? JSONSerialization.data(withJSONObject: [LoginModuleParameters.paymentToken.rawValue: token],
-                                                                   options: JSONSerialization.WritingOptions.prettyPrinted)
+
                     let response = [LoginModuleParameters.bearerToken.rawValue: token]
-                    callback?(response, responseData, urlResponse, nil)
+                    callback?(response, nil, urlResponse, nil)
                 }
                 else {
                     
@@ -92,10 +87,8 @@ class LoginModuleRouter: ModuleRouter {
         default:
             return
         }
+        
     }
-}
-
-class LoginInteractor {
     
     func getPaymentToken(parameters: ModuleParameters?,
                          completion: @escaping (String?, HTTPURLResponse?, Error?) -> Void) {

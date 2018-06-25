@@ -27,14 +27,14 @@ class ViewController: UIViewController {
                                   host: "payments",
                                   path: "/pay",
                                   parameters: ["storyboard": "PaymentsStoryboard",
-                                               "presentationMode": "navigationStack"])  else { return }
+                                               "presentationMode": "navigationStack",
+                                               "amount": "123.00",
+                                               "token": "hf120938h12983dh"])  else { return }
         
         ApplicationRouter.shared.open(url: moduleUrl) { (response, responseData, urlResponse, error) in
             
             //      completion()
         }
     }
-
-
 }
 

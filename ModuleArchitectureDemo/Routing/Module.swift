@@ -85,7 +85,19 @@ protocol ModuleType {
      */
     var route: String { get }
     
+    /**
+     Paths, which represent methods/functionalities a module has, module capabilities, actually
+     
+     - returns:
+     Array of path strings
+     */
     var paths: [String] { get }
+    
+    /**
+     This array contains all the potential types module can let to route to.
+     Reflection is used for memory savvy approach
+     */
+    var subscribedRoutables: [ModuleRoutable.Type] { get set }
     
     /**
      Function has to implement start of the module
@@ -97,17 +109,56 @@ protocol ModuleType {
     func open(parameters: ModuleParameters?,
               path: String?,
               callback: ModuleCallback?)
+    
+    /**
+     This function could be called from `open` or any other for that matter.
+     It facilitates any potentially additionally setup, that a module would eventually need.
+     */
+    func setup(parameters: ModuleParameters?)
+}
+
+extension ModuleType {
+    
+    func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
+        
+        let subscribedRoutableType = subscribedRoutables.filter { subscribedType in
+            
+            let matchedType = subscribedType.getPaths().filter { $0 == path }
+            if matchedType.isEmpty == false {
+                return true
+            }
+            else {
+                return false
+            }
+        }.first
+        guard let subscribedRoutable = subscribedRoutableType else { return }
+        subscribedRoutable.routable().route(parameters: parameters,
+                                            path: path,
+                                            callback: callback)
+        
+        setup(parameters: parameters)
+    }
 }
 
 /**
- This interface defines few simple steps:
-    - store the module route, so it can be accessed many times
-    - route the request sent to the module with parameters to desired functionality which is encapsulated in the module
+ Protocol should be adopted by the classes, which are routed directly by a `Module` and
+ be registered in it.
  */
-protocol ModuleRouter {
+protocol ModuleRoutable {
+
+    /**
+     Every class which wants to be routed by `Module` needs to identify itself with a certain path/method
+     
+     - returns:
+     Collection of String that represents paths
+     */
+    static func getPaths() -> [String]
     
-    var route: String { get set }
-    init(route: String)
+    /**
+     Function which is a workaround for the weak reflection possibilites to
+     create an instance of `ModuleRoutable` from `Class.Type`
+     */
+    static func routable() -> ModuleRoutable
     
     func route(parameters: ModuleParameters?,
                path: String?,
