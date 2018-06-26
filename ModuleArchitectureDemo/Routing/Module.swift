@@ -165,6 +165,23 @@ protocol ModuleRoutable {
                callback: ModuleCallback?)
 }
 
+/**
+ Protocol is adopted by the modules who use Storyboards.
+ */
+protocol StoryboardModuleType: ModuleType {
+    
+    var wireframe: WireframeType { get set }
+}
+
+extension StoryboardModuleType {
+    
+    // Method from ModuleType implemented already here, it can be of course overriden in
+    // any ModuleType implementation
+    func setup(parameters: ModuleParameters?) {
+        
+        wireframe.setupWireframe(parameters: parameters)
+    }
+}
 
 
 

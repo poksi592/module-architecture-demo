@@ -20,7 +20,7 @@ enum ModulePresentationMode: String {
 /**
  This protocol will contain functionality that is used primarily by modules that origin from Storyboard
  */
-protocol StoryboardModuleType: class {
+protocol WireframeType: class {
     
     var storyboard: UIStoryboard {get set}
     var presentationMode: ModulePresentationMode { get set}
@@ -51,10 +51,25 @@ protocol StoryboardModuleType: class {
      - navigationViewController: if `presentationMode` is equal to `navigationStack`, then this value will be used to get
      */
     func present(viewController: UIViewController)
+    
+    /**
+     Function with generic set of parameters. Should be called from `StoryboardModuleType`.
+     */
+    func setupWireframe(parameters: ModuleParameters?)
 }
 
 
-extension StoryboardModuleType {
+extension WireframeType {
+    
+    func setupWireframe(parameters: ModuleParameters?) {
+        
+        if let storyboardName = parameters?[ModuleConstants.UrlParameter.storyboard] {
+            storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        }
+        
+        setPresentationMode(from: parameters)
+        present(viewController: initialViewController(from: parameters))
+    }
 
     /**
      This function could be private, too, but we assume module might want to inject some other

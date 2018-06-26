@@ -15,26 +15,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "Main Screen"
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func toPayments() {
         
-        guard let moduleUrl = URL(schema: "tandem",
-                                  host: "payments",
-                                  path: "/pay",
-                                  parameters: ["storyboard": "PaymentsStoryboard",
-                                               "presentationMode": "navigationStack",
-                                               "amount": "123.00",
-                                               "token": "hf120938h12983dh"])  else { return }
-        
-        ApplicationRouter.shared.open(url: moduleUrl) { (response, responseData, urlResponse, error) in
-            
-            //      completion()
-        }
+        ApplicationServices.shared.pay(amount: 123.00, completion: {})
     }
 }
 

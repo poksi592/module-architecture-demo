@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E3FE53B20A9BADC000C3783 /* ApplicationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */; };
-		3E3FE54020B00CAA000C3783 /* StoryboardModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FE53F20B00CAA000C3783 /* StoryboardModule.swift */; };
+		3E3FE54020B00CAA000C3783 /* WireframeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FE53F20B00CAA000C3783 /* WireframeType.swift */; };
 		3E3FE57D20B433AB000C3783 /* PaymentsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3FE57C20B433AB000C3783 /* PaymentsStoryboard.storyboard */; };
 		3E3FE57F20B44DF2000C3783 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FE57E20B44DF2000C3783 /* PaymentsViewController.swift */; };
 		3E3FE58320B45399000C3783 /* VCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FE58220B45399000C3783 /* VCExtensions.swift */; };
@@ -47,7 +47,7 @@
 
 /* Begin PBXFileReference section */
 		3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationRouter.swift; sourceTree = "<group>"; };
-		3E3FE53F20B00CAA000C3783 /* StoryboardModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardModule.swift; sourceTree = "<group>"; };
+		3E3FE53F20B00CAA000C3783 /* WireframeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WireframeType.swift; sourceTree = "<group>"; };
 		3E3FE57C20B433AB000C3783 /* PaymentsStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PaymentsStoryboard.storyboard; sourceTree = "<group>"; };
 		3E3FE57E20B44DF2000C3783 /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		3E3FE58220B45399000C3783 /* VCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtensions.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			children = (
 				3E5987A42061889B0024F7F7 /* Module.swift */,
 				3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */,
-				3E3FE53F20B00CAA000C3783 /* StoryboardModule.swift */,
+				3E3FE53F20B00CAA000C3783 /* WireframeType.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 				3E3FE57F20B44DF2000C3783 /* PaymentsViewController.swift in Sources */,
 				3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */,
 				3E5987722061879F0024F7F7 /* ViewController.swift in Sources */,
-				3E3FE54020B00CAA000C3783 /* StoryboardModule.swift in Sources */,
+				3E3FE54020B00CAA000C3783 /* WireframeType.swift in Sources */,
 				3E6F83E12065756F004AF262 /* URLExtensions.swift in Sources */,
 				3E5DD5A4209D9D9E00B556C0 /* NonConformingModule.swift in Sources */,
 				3E5987702061879F0024F7F7 /* AppDelegate.swift in Sources */,

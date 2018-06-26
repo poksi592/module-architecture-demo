@@ -11,15 +11,13 @@ import UIKit
 
 enum PaymentsModuleParameters: String {
     
-    case amount
+    case suggestedAmount
     case token
 }
 
-class PaymentModule: ModuleType, StoryboardModuleType {
-    
-    // We use the default storyboard, which can be changed later by injected parameter
-    lazy var storyboard: UIStoryboard = UIStoryboard(name: "PaymentsStoryboard", bundle: nil)
-    var presentationMode: ModulePresentationMode = .none
+class PaymentModule: StoryboardModuleType {
+
+    lazy var wireframe: WireframeType = PaymentWireframe()
     
     var route: String = {
         return "payments"
@@ -32,16 +30,13 @@ class PaymentModule: ModuleType, StoryboardModuleType {
     }()
     
     var subscribedRoutables: [ModuleRoutable.Type] = [PaymentInteractor.self]
+}
 
-    func setup(parameters: ModuleParameters?) {
-        
-        if let storyboardName = parameters?[ModuleConstants.UrlParameter.storyboard] {
-            storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        }
-        
-        setPresentationMode(from: parameters)
-        present(viewController: initialViewController(from: parameters))
-    }
+class PaymentWireframe: WireframeType {
+    
+    // We use the default storyboard, which can be changed later by injected parameter
+    lazy var storyboard: UIStoryboard = UIStoryboard(name: "PaymentsStoryboard", bundle: nil)
+    var presentationMode: ModulePresentationMode = .none
 }
 
 class PaymentInteractor: ModuleRoutable {
@@ -68,11 +63,11 @@ class PaymentInteractor: ModuleRoutable {
         let service = MockPaymentsNetworkService()
         guard let parameters = parameters,
             let token = parameters[PaymentsModuleParameters.token.rawValue],
-            let amount = parameters[PaymentsModuleParameters.amount.rawValue] else {
+            let amount = parameters[PaymentsModuleParameters.suggestedAmount.rawValue] else {
                 return
         }
         let payParameters = [PaymentsModuleParameters.token.rawValue: token,
-                             PaymentsModuleParameters.amount.rawValue: amount]
+                             PaymentsModuleParameters.suggestedAmount.rawValue: amount]
 
         service.post(host: "payments",
                      path: "/pay",
@@ -100,7 +95,7 @@ class MockPaymentsNetworkService: NetworkService {
         // Just some basic validation, nothing fancy
         if let parameters = parameters,
             parameters[PaymentsModuleParameters.token.rawValue] as? String == "hf120938h12983dh",
-            parameters[PaymentsModuleParameters.amount.rawValue] as? String != "" {
+            parameters[PaymentsModuleParameters.suggestedAmount.rawValue] as? String != "" {
             
             let url = URL(schema: "https",
                           host: host,

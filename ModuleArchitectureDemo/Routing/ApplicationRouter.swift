@@ -72,16 +72,13 @@ class ApplicationServices {
     let appRouter = ApplicationRouter()
     
     func pay(amount: Double,
-             username: String,
-             password: String,
              completion: @escaping (() -> Void)) {
         
         // Get payment token from `LoginModule` with `username` and `password`
         guard let moduleUrl = URL(schema: "tandem",
-                                  host: "login",
-                                  path: "/payment-token",
-                                  parameters: ["username": username,
-                                               "password": password]) else {
+                                  host: "payments",
+                                  path: "/pay",
+                                  parameters: ["amount": String(amount)]) else {
                 return
         }
         appRouter.open(url: moduleUrl) { [weak self] (response, responseData, urlResponse, error) in
