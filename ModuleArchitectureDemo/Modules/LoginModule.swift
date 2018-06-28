@@ -64,7 +64,7 @@ class LoginInteractor: ModuleRoutable {
                 else {
                     
                     // Simplyfication of error response
-                    callback?(nil, nil, nil, error)
+                    callback?(nil, nil, nil, ResponseError(error: error, response: urlResponse))
                 }
             }
             
@@ -80,7 +80,7 @@ class LoginInteractor: ModuleRoutable {
                 else {
                     
                     // Simplyfication of error response
-                    callback?(nil, nil, nil, error)
+                    callback?(nil, nil, nil, ResponseError(error: error, response: urlResponse))
                 }
             }
             

@@ -22,7 +22,7 @@ class PaymentsInteractor: ModuleRoutable {
         
         pay(parameters: parameters)  { (urlResponse, error) in
             
-            callback?(nil, nil, urlResponse, error)
+            callback?(nil, nil, urlResponse, ResponseError(error: error, response: urlResponse))
         }
     }
     

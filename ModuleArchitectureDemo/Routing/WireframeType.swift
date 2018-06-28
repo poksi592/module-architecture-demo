@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum ModulePresentationMode: String {
+public enum ModulePresentationMode: String {
     
     case none
     case root
@@ -20,7 +20,7 @@ enum ModulePresentationMode: String {
 /**
  This protocol will contain functionality that is used primarily by modules that origin from Storyboard
  */
-protocol WireframeType: class {
+public protocol WireframeType: class {
     
     var storyboard: UIStoryboard { get set }
     var presentationMode: ModulePresentationMode { get set }

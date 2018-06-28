@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias ModuleCallback = ([String: Any]?, Data?, URLResponse?, Error?) -> Void
+public typealias ModuleCallback = ([String: Any]?, Data?, URLResponse?, ResponseError?) -> Void
 
 /**
  Protocol defines application router, which function is
@@ -63,46 +63,6 @@ class ApplicationRouter: ApplicationRouterType {
     // We have registered 2 modules for now...
     var instantiatedModules: [ModuleType] = [PaymentModule(),
                                              LoginModule()]
-}
-
-class ApplicationServices {
-    
-    // ApplicationServices is a singleton, because it makes it easier to be accessed from anywhere to access its functions/services
-    static let shared = ApplicationServices()
-    let appRouter = ApplicationRouter()
-    
-    func pay(amount: Double,
-             paymentToken: String?,
-             completion: @escaping (() -> Void)) {
-        
-        // Get payment token from `LoginModule` with `username` and `password`
-        guard let moduleUrl = URL(schema: "tandem",
-                                  host: "payments",
-                                  path: "/pay",
-                                  parameters: ["amount": String(amount),
-                                               "token": paymentToken ?? "",
-                                               "presentationMode": "navigationStack"]) else {
-                return
-        }
-        appRouter.open(url: moduleUrl) { [weak self] (response, responseData, urlResponse, error) in
-            
-            // Use `token` in response to make an actual payment through `PaymentsModule`
-            guard let response = response,
-                    let token = response["paymentToken"] as? String,
-                    let moduleUrl = URL(schema: "tandem",
-                                        host: "payments",
-                                        path: "/pay",
-                                        parameters: ["token": token,
-                                                     "amount": String(amount)]) else {
-                    return
-            }
-            self?.appRouter.open(url: moduleUrl) { (response, responseData, urlResponse, error) in
-
-                // Final callback, basically just to synchronize our example here with the NonCompliantModule
-                completion()
-            }
-        }
-    }
 }
 
 @objc class URLRouter: URLProtocol, URLSessionDataDelegate, URLSessionTaskDelegate {

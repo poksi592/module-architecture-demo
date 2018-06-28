@@ -28,6 +28,7 @@
 		3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E6206958F7004AF262 /* NetworkService.swift */; };
 		CC281D8B20E284D700CE2673 /* PaymentsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D8A20E284D700CE2673 /* PaymentsInteractor.swift */; };
 		CC281D8F20E3935C00CE2673 /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D8E20E3935C00CE2673 /* WeakContainer.swift */; };
+		CC281D9120E4C9CF00CE2673 /* ApplicationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9020E4C9CF00CE2673 /* ApplicationServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		3E6F83E6206958F7004AF262 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CC281D8A20E284D700CE2673 /* PaymentsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsInteractor.swift; sourceTree = "<group>"; };
 		CC281D8E20E3935C00CE2673 /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
+		CC281D9020E4C9CF00CE2673 /* ApplicationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				3E5987A42061889B0024F7F7 /* Module.swift */,
 				3E3FE53A20A9BADC000C3783 /* ApplicationRouter.swift */,
 				3E3FE53F20B00CAA000C3783 /* WireframeType.swift */,
+				CC281D9020E4C9CF00CE2673 /* ApplicationServices.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				3E6F83E12065756F004AF262 /* URLExtensions.swift in Sources */,
 				3E5DD5A4209D9D9E00B556C0 /* NonConformingModule.swift in Sources */,
 				CC281D8F20E3935C00CE2673 /* WeakContainer.swift in Sources */,
+				CC281D9120E4C9CF00CE2673 /* ApplicationServices.swift in Sources */,
 				3E5987702061879F0024F7F7 /* AppDelegate.swift in Sources */,
 				3E6F83E52068C5D3004AF262 /* PaymentsModule.swift in Sources */,
 				3E5987A820618A6C0024F7F7 /* LoginModule.swift in Sources */,

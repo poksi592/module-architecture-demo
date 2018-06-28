@@ -11,7 +11,7 @@ import UIKit
 
 public typealias ModuleParameters = [String: String]
 
-struct ModuleConstants {
+public struct ModuleConstants {
     
     struct UrlParameter {
         
@@ -21,7 +21,7 @@ struct ModuleConstants {
     }
 }
 
-enum ResponseError: Error {
+public enum ResponseError: Error {
     
     case serializationFailed
     case taskCancelled
@@ -75,7 +75,7 @@ enum ResponseError: Error {
  
  Every module needs to identify itself with unique application route/domain which is queried by `ModuleHub`
  */
-protocol ModuleType {
+public protocol ModuleType {
     
     /**
      Every module needs to identify itself with a certain route/domain
@@ -117,7 +117,7 @@ protocol ModuleType {
     func setup(parameters: ModuleParameters?)
 }
 
-extension ModuleType {
+public extension ModuleType {
     
     func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
         
@@ -144,7 +144,7 @@ extension ModuleType {
  Protocol should be adopted by the classes, which are routed directly by a `Module` and
  be registered in it.
  */
-protocol ModuleRoutable {
+public protocol ModuleRoutable {
 
     /**
      Every class which wants to be routed by `Module` needs to identify itself with a certain path/method
@@ -168,12 +168,12 @@ protocol ModuleRoutable {
 /**
  Protocol is adopted by the modules who use Storyboards.
  */
-protocol StoryboardModuleType: ModuleType {
+public protocol StoryboardModuleType: ModuleType {
     
     var wireframe: WireframeType { get set }
 }
 
-extension StoryboardModuleType {
+public extension StoryboardModuleType {
     
     // Method from ModuleType implemented already here, it can be of course overriden in
     // any ModuleType implementation
@@ -183,7 +183,7 @@ extension StoryboardModuleType {
     }
 }
 
-class StoryboardIdentifiableViewController: UIViewController {
+public class StoryboardIdentifiableViewController: UIViewController {
     
     var storyboardId: String? = nil
 }
