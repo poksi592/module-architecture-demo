@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PaymentsViewController: UIViewController {
+class PaymentsViewController: StoryboardIdentifiableViewController {
     
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var payButton: UIButton!

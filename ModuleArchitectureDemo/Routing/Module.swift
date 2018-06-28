@@ -183,6 +183,12 @@ extension StoryboardModuleType {
     }
 }
 
+class StoryboardIdentifiableViewController: UIViewController {
+    
+    var storyboardId: String? = nil
+}
+
+
 
 
 

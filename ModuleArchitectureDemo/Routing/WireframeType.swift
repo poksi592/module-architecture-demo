@@ -22,8 +22,9 @@ enum ModulePresentationMode: String {
  */
 protocol WireframeType: class {
     
-    var storyboard: UIStoryboard {get set}
-    var presentationMode: ModulePresentationMode { get set}
+    var storyboard: UIStoryboard { get set }
+    var presentationMode: ModulePresentationMode { get set }
+    var presentedViewControllers: [WeakContainer<UIViewController>] { get set }
     
     /**
      Returns `initialViewController`, if its name is specified in parameters, where key by convention is equal to `viewController`
@@ -63,12 +64,57 @@ extension WireframeType {
     
     func setupWireframe(parameters: ModuleParameters?) {
         
+        // Guard prevents from initial VC being added again each time `open` function is
+        // run from the Module
+        // Each time it's called, `presentedViewControllers` is cleared from empty containers
+        presentedViewControllers = presentedViewControllers.filter { $0.value != nil }
+        guard presentedViewControllers.isEmpty else { return }
+        
         if let storyboardName = parameters?[ModuleConstants.UrlParameter.storyboard] {
             storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         }
         
         setPresentationMode(from: parameters)
-        present(viewController: initialViewController(from: parameters))
+        let viewController = initialViewController(from: parameters)
+        present(viewController: viewController)
+        presentedViewControllers.append(WeakContainer(value: viewController))
+    }
+    
+    func viewController(from parameters:[String: String]?) -> UIViewController? {
+        
+        guard let viewControllerName = parameters?[ModuleConstants.UrlParameter.viewController] else {
+            return nil
+        }
+        let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerName)
+        
+        // If VC doesn't inherit from to `StoryboardIdentifiable`, then we assume caller will
+        // use it on his own discretion, so we return it.
+        guard let identifiableVc = viewController as? StoryboardIdentifiableViewController else {
+            return viewController
+        }
+        
+        // One particular view controller should be presented only once if
+        // it conforms to the StoryboardIdentifiable protocol
+        // Here we add it to the array of already presented
+        let identifier = parameters?[ModuleConstants.UrlParameter.viewController]
+        
+        // Each time it's called, `presentedViewControllers` is cleared from empty containers
+        presentedViewControllers = presentedViewControllers.filter { $0.value != nil }
+        let instantiatedVc = presentedViewControllers.filter { wrappedVc in
+            
+            let storyboardId = wrappedVc.value as? StoryboardIdentifiableViewController
+            return storyboardId?.storyboardId == identifier ? true : false
+        }
+        
+        if instantiatedVc.isEmpty == false {
+            
+            identifiableVc.storyboardId = identifier
+            presentedViewControllers.append(WeakContainer(value: identifiableVc))
+            return identifiableVc
+        }
+        else {
+            return nil
+        }
     }
 
     /**

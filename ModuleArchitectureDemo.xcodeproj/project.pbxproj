@@ -26,6 +26,8 @@
 		3E6F83E32066AA6E004AF262 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E22066AA6E004AF262 /* Bundle.swift */; };
 		3E6F83E52068C5D3004AF262 /* PaymentsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E42068C5D3004AF262 /* PaymentsModule.swift */; };
 		3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F83E6206958F7004AF262 /* NetworkService.swift */; };
+		CC281D8B20E284D700CE2673 /* PaymentsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D8A20E284D700CE2673 /* PaymentsInteractor.swift */; };
+		CC281D8F20E3935C00CE2673 /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D8E20E3935C00CE2673 /* WeakContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		3E6F83E22066AA6E004AF262 /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		3E6F83E42068C5D3004AF262 /* PaymentsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsModule.swift; sourceTree = "<group>"; };
 		3E6F83E6206958F7004AF262 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CC281D8A20E284D700CE2673 /* PaymentsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsInteractor.swift; sourceTree = "<group>"; };
+		CC281D8E20E3935C00CE2673 /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			children = (
 				3E6F83E42068C5D3004AF262 /* PaymentsModule.swift */,
 				3E3FE57E20B44DF2000C3783 /* PaymentsViewController.swift */,
+				CC281D8A20E284D700CE2673 /* PaymentsInteractor.swift */,
 			);
 			path = Payments;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				3E6F83E22066AA6E004AF262 /* Bundle.swift */,
 				3E6F83E02065756F004AF262 /* URLExtensions.swift */,
 				3E3FE58220B45399000C3783 /* VCExtensions.swift */,
+				CC281D8E20E3935C00CE2673 /* WeakContainer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -343,9 +349,11 @@
 				3E3FE57F20B44DF2000C3783 /* PaymentsViewController.swift in Sources */,
 				3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */,
 				3E5987722061879F0024F7F7 /* ViewController.swift in Sources */,
+				CC281D8B20E284D700CE2673 /* PaymentsInteractor.swift in Sources */,
 				3E3FE54020B00CAA000C3783 /* WireframeType.swift in Sources */,
 				3E6F83E12065756F004AF262 /* URLExtensions.swift in Sources */,
 				3E5DD5A4209D9D9E00B556C0 /* NonConformingModule.swift in Sources */,
+				CC281D8F20E3935C00CE2673 /* WeakContainer.swift in Sources */,
 				3E5987702061879F0024F7F7 /* AppDelegate.swift in Sources */,
 				3E6F83E52068C5D3004AF262 /* PaymentsModule.swift in Sources */,
 				3E5987A820618A6C0024F7F7 /* LoginModule.swift in Sources */,

@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var interactor: PaymentsInteractor?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -18,7 +20,7 @@ class ViewController: UIViewController {
     
     @IBAction func toPayments() {
         
-        ApplicationServices.shared.pay(amount: 123.00, completion: {})
+        ApplicationServices.shared.pay(amount: 123.00, paymentToken: nil, completion: {})
     }
 }
 
