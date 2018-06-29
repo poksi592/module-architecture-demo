@@ -15,9 +15,7 @@ enum PaymentsModuleParameters: String {
     case token
 }
 
-class PaymentModule: StoryboardModuleType {
-
-    lazy var wireframe: WireframeType = PaymentWireframe()
+class PaymentModule: ModuleType {    
     
     var route: String = {
         return "payments"
@@ -29,7 +27,7 @@ class PaymentModule: StoryboardModuleType {
                 "/refund"]
     }()
     
-    var subscribedRoutables: [ModuleRoutable.Type] = [PaymentsInteractor.self]
+    var subscribedRoutables: [ModuleRoutable.Type] = [PaymentsPresenter.self]
 }
 
 class PaymentWireframe: WireframeType {
@@ -38,5 +36,13 @@ class PaymentWireframe: WireframeType {
     lazy var storyboard: UIStoryboard = UIStoryboard(name: "PaymentsStoryboard", bundle: nil)
     lazy var presentedViewControllers = [WeakContainer<UIViewController>]()
     var presentationMode: ModulePresentationMode = .none
+    
+    func presentPayViewController(with presenter: PaymentsPresenter, parameters: ModuleParameters?) {
+        
+        setPresentationMode(from: parameters)
+        if let viewController = viewController(from: parameters) {
+            present(viewController: viewController)
+        }
+    }
 }
 

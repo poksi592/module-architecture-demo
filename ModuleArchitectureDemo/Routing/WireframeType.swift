@@ -33,7 +33,7 @@ public protocol WireframeType: class {
      If it contains the key `viewController` then its value is used as name of view controller
      - returns: UIViewController, which is default from storyboard of the one that was specified by parameters
      */
-    func initialViewController(from parameters:[String: String]?) -> UIViewController
+    func initialViewController(from parameters:[String: String]?) -> UIViewController?
     
     /**
      Sets `presentationMode`, if its name is specified in parameters, where key by convention is equal to `presentationMode`
@@ -75,9 +75,10 @@ extension WireframeType {
         }
         
         setPresentationMode(from: parameters)
-        let viewController = initialViewController(from: parameters)
-        present(viewController: viewController)
-        presentedViewControllers.append(WeakContainer(value: viewController))
+        if let viewController = initialViewController(from: parameters) {
+            present(viewController: viewController)
+            presentedViewControllers.append(WeakContainer(value: viewController))
+        }
     }
     
     func viewController(from parameters:[String: String]?) -> UIViewController? {
@@ -121,11 +122,11 @@ extension WireframeType {
      This function could be private, too, but we assume module might want to inject some other
      properties to it, therefore we hand over control to the module, after initial VC is instantiated
      */
-    func initialViewController(from parameters:[String: String]?) -> UIViewController {
+    func initialViewController(from parameters:[String: String]?) -> UIViewController? {
         
         guard let viewControllerName = parameters?[ModuleConstants.UrlParameter.viewController] else {
             
-            return storyboard.instantiateInitialViewController()!
+            return storyboard.instantiateInitialViewController()
         }
         return storyboard.instantiateViewController(withIdentifier: viewControllerName)
     }

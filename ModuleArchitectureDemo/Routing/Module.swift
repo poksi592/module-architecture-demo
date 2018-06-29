@@ -137,7 +137,10 @@ public extension ModuleType {
                                             callback: callback)
         
         setup(parameters: parameters)
+
     }
+    
+    func setup(parameters: ModuleParameters?) { }
 }
 
 /**
@@ -163,24 +166,6 @@ public protocol ModuleRoutable {
     func route(parameters: ModuleParameters?,
                path: String?,
                callback: ModuleCallback?)
-}
-
-/**
- Protocol is adopted by the modules who use Storyboards.
- */
-public protocol StoryboardModuleType: ModuleType {
-    
-    var wireframe: WireframeType { get set }
-}
-
-public extension StoryboardModuleType {
-    
-    // Method from ModuleType implemented already here, it can be of course overriden in
-    // any ModuleType implementation
-    func setup(parameters: ModuleParameters?) {
-        
-        wireframe.setupWireframe(parameters: parameters)
-    }
 }
 
 public class StoryboardIdentifiableViewController: UIViewController {

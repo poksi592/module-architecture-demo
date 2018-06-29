@@ -27,7 +27,8 @@ class ApplicationServices {
                                       path: "/pay",
                                       parameters: ["amount": String(amount),
                                                    "token": paymentToken ?? "",
-                                                   "presentationMode": "navigationStack"]) else { return nil }
+                                                   "presentationMode": "navigationStack",
+                                                   "viewController": "PaymentsViewControllerId"]) else { return nil }
             return moduleUrl
         }
         
