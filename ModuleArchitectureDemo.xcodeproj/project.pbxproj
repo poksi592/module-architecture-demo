@@ -35,6 +35,7 @@
 		CC281D9B20E6360A00CE2673 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9A20E6360A00CE2673 /* LoginPresenter.swift */; };
 		CC281D9D20E63A4600CE2673 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9C20E63A4600CE2673 /* LoginViewController.swift */; };
 		CC281D9F20E6428400CE2673 /* PaymentsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9E20E6428400CE2673 /* PaymentsWireframe.swift */; };
+		CC97C6AA20E6862300B806AC /* LoginWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC97C6A920E6862200B806AC /* LoginWireframe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		CC281D9A20E6360A00CE2673 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		CC281D9C20E63A4600CE2673 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC281D9E20E6428400CE2673 /* PaymentsWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsWireframe.swift; sourceTree = "<group>"; };
+		CC97C6A920E6862200B806AC /* LoginWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWireframe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 				CC281D9820E635FD00CE2673 /* LoginInteractor.swift */,
 				CC281D9A20E6360A00CE2673 /* LoginPresenter.swift */,
 				CC281D9C20E63A4600CE2673 /* LoginViewController.swift */,
+				CC97C6A920E6862200B806AC /* LoginWireframe.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC97C6AA20E6862300B806AC /* LoginWireframe.swift in Sources */,
 				3E5987A52061889B0024F7F7 /* Module.swift in Sources */,
 				3E3FE53B20A9BADC000C3783 /* ApplicationRouter.swift in Sources */,
 				3E6F83E32066AA6E004AF262 /* Bundle.swift in Sources */,

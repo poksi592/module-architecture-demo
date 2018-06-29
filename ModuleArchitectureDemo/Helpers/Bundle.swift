@@ -16,7 +16,7 @@ extension Bundle {
             guard let urlTypes = self.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: AnyObject]] else {
                 return nil
             }
-            let urlSchemes = urlTypes.flatMap { (item) -> [String]? in
+            let urlSchemes = urlTypes.compactMap { (item) -> [String]? in
                 
                 guard let schemes = item["CFBundleURLSchemes"] as? [String] else {
                     

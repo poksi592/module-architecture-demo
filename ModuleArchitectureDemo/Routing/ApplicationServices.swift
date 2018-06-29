@@ -39,7 +39,8 @@ class ApplicationServices {
             guard let moduleUrl = URL(schema: "tandem",
                                       host: "login",
                                       path: "/payment-token",
-                                      parameters: ["viewController": "LoginViewControllerId"]) else { return nil }
+                                      parameters: ["viewController": "LoginViewControllerId",
+                                                   "presentationMode": "modal"]) else { return nil }
             return moduleUrl
         }
 
@@ -69,7 +70,10 @@ class ApplicationServices {
                     }
                 }
             }
-            completion()
+            else {
+                completion()
+            }
+
         }
         // MARK Logic - End
     }

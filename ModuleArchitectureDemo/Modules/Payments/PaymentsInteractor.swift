@@ -49,12 +49,20 @@ class MockPaymentsNetworkService: NetworkService {
         guard let parameters = parameters else { return }
         
         // If we don't get a specific payment token, then we return 401
-        if parameters[PaymentsModuleParameters.token.rawValue] as? String == "hf120938h12983dh" {
+        if parameters[PaymentsModuleParameters.token.rawValue] as? String != "hf120938h12983dh" {
             
+            let url = URL(schema: "https",
+                          host: host,
+                          path: path,
+                          parameters: parameters as? [String : String])
+            let response = HTTPURLResponse.init(url: url!,
+                                                statusCode: 401,
+                                                httpVersion: nil,
+                                                headerFields: nil)
             let error = NSError.init(domain: "com.module.architecture.demo.network-errors",
                                      code: 401,
                                      userInfo: nil)
-            completion(nil, nil, error)
+            completion(nil, response, error)
         }
         
         // We expect the amount, or there's Bad Request 400

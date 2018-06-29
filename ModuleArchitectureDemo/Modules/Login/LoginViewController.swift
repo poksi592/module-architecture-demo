@@ -7,7 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
 class LoginViewController: StoryboardIdentifiableViewController {
+    
+    var presenter: LoginPresenter?
+    
+    @IBOutlet weak var usernameField: UITextField?
+    @IBOutlet weak var passwordField: UITextField?
+    
+    @IBAction private func login(_ sender: UIButton) {
+        
+        presenter?.login(username: usernameField?.text, password: passwordField?.text)
+    }
+    
     
 }

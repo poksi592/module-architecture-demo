@@ -64,7 +64,7 @@ class LoginInteractor: ModuleRoutable {
     }
     
     func getPaymentToken(parameters: ModuleParameters?,
-                         completion: @escaping (String?, HTTPURLResponse?, Error?) -> Void) {
+                         completion: @escaping (String?, HTTPURLResponse?, ResponseError?) -> Void) {
         
         let service = MockLoginNetworkService()
         
@@ -99,7 +99,7 @@ class LoginInteractor: ModuleRoutable {
     }
     
     func login(parameters: ModuleParameters?,
-               completion: @escaping (String?, HTTPURLResponse?, Error?) -> Void) {
+               completion: @escaping (String?, HTTPURLResponse?, ResponseError?) -> Void) {
         
         let service = MockLoginNetworkService()
         guard let parameters = parameters,

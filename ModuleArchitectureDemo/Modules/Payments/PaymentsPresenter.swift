@@ -33,7 +33,7 @@ class PaymentsPresenter: ModuleRoutable {
     func pay(amount: String?) {
         
         if let amount = amount {
-            parameters?[PaymentsModuleParameters.token.rawValue] = amount
+            parameters?[PaymentsModuleParameters.suggestedAmount.rawValue] = amount
             interactor.pay(parameters: parameters) { [weak self] (response, error) in
                 
                 self?.callback?(nil, nil, response, error)
