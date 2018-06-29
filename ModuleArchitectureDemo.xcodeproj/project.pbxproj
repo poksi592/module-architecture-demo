@@ -30,6 +30,11 @@
 		CC281D8F20E3935C00CE2673 /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D8E20E3935C00CE2673 /* WeakContainer.swift */; };
 		CC281D9120E4C9CF00CE2673 /* ApplicationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9020E4C9CF00CE2673 /* ApplicationServices.swift */; };
 		CC281D9320E524C300CE2673 /* PaymentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9220E524C300CE2673 /* PaymentsPresenter.swift */; };
+		CC281D9520E635A600CE2673 /* LoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC281D9420E635A600CE2673 /* LoginStoryboard.storyboard */; };
+		CC281D9920E635FD00CE2673 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9820E635FD00CE2673 /* LoginInteractor.swift */; };
+		CC281D9B20E6360A00CE2673 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9A20E6360A00CE2673 /* LoginPresenter.swift */; };
+		CC281D9D20E63A4600CE2673 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9C20E63A4600CE2673 /* LoginViewController.swift */; };
+		CC281D9F20E6428400CE2673 /* PaymentsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC281D9E20E6428400CE2673 /* PaymentsWireframe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,11 @@
 		CC281D8E20E3935C00CE2673 /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
 		CC281D9020E4C9CF00CE2673 /* ApplicationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationServices.swift; sourceTree = "<group>"; };
 		CC281D9220E524C300CE2673 /* PaymentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsPresenter.swift; sourceTree = "<group>"; };
+		CC281D9420E635A600CE2673 /* LoginStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginStoryboard.storyboard; sourceTree = "<group>"; };
+		CC281D9820E635FD00CE2673 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		CC281D9A20E6360A00CE2673 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		CC281D9C20E63A4600CE2673 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CC281D9E20E6428400CE2673 /* PaymentsWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsWireframe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				3E3FE57C20B433AB000C3783 /* PaymentsStoryboard.storyboard */,
+				CC281D9420E635A600CE2673 /* LoginStoryboard.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -121,6 +132,7 @@
 				3E3FE57E20B44DF2000C3783 /* PaymentsViewController.swift */,
 				CC281D8A20E284D700CE2673 /* PaymentsInteractor.swift */,
 				CC281D9220E524C300CE2673 /* PaymentsPresenter.swift */,
+				CC281D9E20E6428400CE2673 /* PaymentsWireframe.swift */,
 			);
 			path = Payments;
 			sourceTree = "<group>";
@@ -195,7 +207,7 @@
 		3E5987A620618A290024F7F7 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				3E5987A720618A6C0024F7F7 /* LoginModule.swift */,
+				CC281D9720E635EB00CE2673 /* Login */,
 				3E3FE58020B44E1E000C3783 /* Payments */,
 				3E5DD5A3209D9D9E00B556C0 /* NonConformingModule.swift */,
 			);
@@ -211,6 +223,17 @@
 				CC281D8E20E3935C00CE2673 /* WeakContainer.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		CC281D9720E635EB00CE2673 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3E5987A720618A6C0024F7F7 /* LoginModule.swift */,
+				CC281D9820E635FD00CE2673 /* LoginInteractor.swift */,
+				CC281D9A20E6360A00CE2673 /* LoginPresenter.swift */,
+				CC281D9C20E63A4600CE2673 /* LoginViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E59877A2061879F0024F7F7 /* LaunchScreen.storyboard in Resources */,
+				CC281D9520E635A600CE2673 /* LoginStoryboard.storyboard in Resources */,
 				3E5987772061879F0024F7F7 /* Assets.xcassets in Resources */,
 				3E3FE57D20B433AB000C3783 /* PaymentsStoryboard.storyboard in Resources */,
 				3E5987752061879F0024F7F7 /* Main.storyboard in Resources */,
@@ -352,10 +376,13 @@
 				3E3FE53B20A9BADC000C3783 /* ApplicationRouter.swift in Sources */,
 				3E6F83E32066AA6E004AF262 /* Bundle.swift in Sources */,
 				3E3FE58320B45399000C3783 /* VCExtensions.swift in Sources */,
+				CC281D9B20E6360A00CE2673 /* LoginPresenter.swift in Sources */,
 				3E3FE57F20B44DF2000C3783 /* PaymentsViewController.swift in Sources */,
 				3E6F83E7206958F7004AF262 /* NetworkService.swift in Sources */,
 				3E5987722061879F0024F7F7 /* ViewController.swift in Sources */,
+				CC281D9D20E63A4600CE2673 /* LoginViewController.swift in Sources */,
 				CC281D8B20E284D700CE2673 /* PaymentsInteractor.swift in Sources */,
+				CC281D9920E635FD00CE2673 /* LoginInteractor.swift in Sources */,
 				3E3FE54020B00CAA000C3783 /* WireframeType.swift in Sources */,
 				CC281D9320E524C300CE2673 /* PaymentsPresenter.swift in Sources */,
 				3E6F83E12065756F004AF262 /* URLExtensions.swift in Sources */,
@@ -363,6 +390,7 @@
 				CC281D8F20E3935C00CE2673 /* WeakContainer.swift in Sources */,
 				CC281D9120E4C9CF00CE2673 /* ApplicationServices.swift in Sources */,
 				3E5987702061879F0024F7F7 /* AppDelegate.swift in Sources */,
+				CC281D9F20E6428400CE2673 /* PaymentsWireframe.swift in Sources */,
 				3E6F83E52068C5D3004AF262 /* PaymentsModule.swift in Sources */,
 				3E5987A820618A6C0024F7F7 /* LoginModule.swift in Sources */,
 			);

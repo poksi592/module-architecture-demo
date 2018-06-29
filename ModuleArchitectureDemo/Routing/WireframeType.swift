@@ -107,7 +107,7 @@ extension WireframeType {
             return storyboardId?.storyboardId == identifier ? true : false
         }
         
-        if instantiatedVc.isEmpty == false {
+        if instantiatedVc.isEmpty == true {
             
             identifiableVc.storyboardId = identifier
             presentedViewControllers.append(WeakContainer(value: identifiableVc))

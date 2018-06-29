@@ -1,39 +1,12 @@
 //
-//  LoginModule.swift
-//  APIClientArchitectureDemo
+//  LoginInteractor.swift
+//  ModuleArchitectureDemo
 //
-//  Created by Mladen Despotovic on 20/03/2018.
+//  Created by Mladen Despotovic on 29.06.18.
 //  Copyright © 2018 Mladen Despotovic. All rights reserved.
 //
 
 import Foundation
-
-// A simple way of formalising request parameters within a module
-enum LoginModuleParameters: String {
-    
-    case username
-    case password
-    case paymentToken
-    case bearerToken
-}
-
-class LoginModule: ModuleType {
-    
-    func setup(parameters: ModuleParameters?) {}
-
-    var route: String = {
-            return "login"
-    }()
-    
-    var paths: [String] = {
-        return ["/login",
-                "/logout",
-                "/payment-token"]
-    }()
-    
-    var subscribedRoutables: [ModuleRoutable.Type] = [LoginInteractor.self]
-}
-
 
 class LoginInteractor: ModuleRoutable {
     
@@ -57,7 +30,7 @@ class LoginInteractor: ModuleRoutable {
             getPaymentToken(parameters: parameters) { (token, urlResponse, error) in
                 
                 if let token = token {
-
+                    
                     let response = [LoginModuleParameters.paymentToken.rawValue: token]
                     callback?(response,  nil, urlResponse, nil)
                 }
@@ -73,7 +46,7 @@ class LoginInteractor: ModuleRoutable {
             login(parameters: parameters) { (token, urlResponse, error) in
                 
                 if let token = token {
-
+                    
                     let response = [LoginModuleParameters.bearerToken.rawValue: token]
                     callback?(response, nil, urlResponse, nil)
                 }
@@ -94,9 +67,18 @@ class LoginInteractor: ModuleRoutable {
                          completion: @escaping (String?, HTTPURLResponse?, Error?) -> Void) {
         
         let service = MockLoginNetworkService()
+        
+        // If parameters are not passed, then we exit with Bad Request at once
         guard let parameters = parameters,
-                let username = parameters[LoginModuleParameters.username.rawValue],
-                let password = parameters[LoginModuleParameters.password.rawValue] else {
+            let username = parameters[LoginModuleParameters.username.rawValue],
+            let password = parameters[LoginModuleParameters.password.rawValue] else {
+                
+                let url = URL.init(schema: "tandem", host: "login")
+                let response = HTTPURLResponse.init(url: url!,
+                                                    statusCode: 400,
+                                                    httpVersion: nil,
+                                                    headerFields: nil)
+                completion(nil, response, nil)
                 return
         }
         let getTokenParameters = [LoginModuleParameters.username.rawValue: username,
@@ -104,15 +86,15 @@ class LoginInteractor: ModuleRoutable {
         service.post(host: "login",
                      path: "/payment-token",
                      parameters: getTokenParameters) { (response, urlResponse, error) in
-            
-            // We are not going to check errors and URL response status codes, just a shortest path.
-            var networkError: ResponseError? = nil
-            if let error = error {
-                networkError = ResponseError(error: error, response: urlResponse)
-            }
-            let token = response?["paymentToken"] as? String
-            
-            completion(token, urlResponse, networkError)
+                        
+                        // We are not going to check errors and URL response status codes, just a shortest path.
+                        var networkError: ResponseError? = nil
+                        if let error = error {
+                            networkError = ResponseError(error: error, response: urlResponse)
+                        }
+                        let token = response?["paymentToken"] as? String
+                        
+                        completion(token, urlResponse, networkError)
         }
     }
     
@@ -126,7 +108,7 @@ class LoginInteractor: ModuleRoutable {
                 return
         }
         let loginParameters = [LoginModuleParameters.username.rawValue: username,
-                                  LoginModuleParameters.password.rawValue: password]
+                               LoginModuleParameters.password.rawValue: password]
         service.post(host: "login",
                      path: "/login",
                      parameters: loginParameters) { (response, urlResponse, error) in
@@ -211,7 +193,3 @@ class MockLoginNetworkService: NetworkService {
         }
     }
 }
-
-
-
-

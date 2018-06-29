@@ -10,7 +10,10 @@ import Foundation
 
 class PaymentsPresenter: ModuleRoutable {
     
-    lazy var wireframe: WireframeType = PaymentWireframe()
+    lazy private var wireframe = PaymentWireframe()
+    lazy private var interactor = PaymentsInteractor()
+    private var parameters: ModuleParameters?
+    private var callback: ModuleCallback?
     
     static func routable() -> ModuleRoutable {
         return self.init()
@@ -22,6 +25,19 @@ class PaymentsPresenter: ModuleRoutable {
     
     func route(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
         
-        wireframe.setupWireframe(parameters: parameters)
+        self.parameters = parameters
+        self.callback = callback
+        wireframe.presentPayViewController(with: self, parameters: parameters)
+    }
+    
+    func pay(amount: String?) {
+        
+        if let amount = amount {
+            parameters?[PaymentsModuleParameters.token.rawValue] = amount
+            interactor.pay(parameters: parameters) { [weak self] (response, error) in
+                
+                self?.callback?(nil, nil, response, error)
+            }
+        }
     }
 }

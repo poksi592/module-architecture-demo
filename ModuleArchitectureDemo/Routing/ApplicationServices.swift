@@ -34,10 +34,12 @@ class ApplicationServices {
         
         func loginUrl() -> URL? {
 
+            // We add view controller, because there could be business cases where we could already pass
+            // username and password and no view controller for their input would be needed
             guard let moduleUrl = URL(schema: "tandem",
                                       host: "login",
-                                      path: "/paymentToken",
-                                      parameters: nil) else { return nil }
+                                      path: "/payment-token",
+                                      parameters: ["viewController": "LoginViewControllerId"]) else { return nil }
             return moduleUrl
         }
 

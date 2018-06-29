@@ -8,34 +8,18 @@
 
 import Foundation
 
-class PaymentsInteractor: ModuleRoutable {
-    
-    static func routable() -> ModuleRoutable {
-        return self.init()
-    }
-    
-    static func getPaths() -> [String] {
-        return ["/pay"]
-    }
-    
-    func route(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
-        
-        pay(parameters: parameters)  { (urlResponse, error) in
-            
-            callback?(nil, nil, urlResponse, ResponseError(error: error, response: urlResponse))
-        }
-    }
+class PaymentsInteractor {
     
     func pay(parameters: ModuleParameters?,
-             completion: @escaping (HTTPURLResponse?, Error?) -> Void) {
+             completion: @escaping (HTTPURLResponse?, ResponseError?) -> Void) {
         
         let service = MockPaymentsNetworkService()
         guard let parameters = parameters,
-            let token = parameters[PaymentsModuleParameters.token.rawValue],
-            let amount = parameters[PaymentsModuleParameters.suggestedAmount.rawValue] else {
+                let amount = parameters[PaymentsModuleParameters.suggestedAmount.rawValue] else {
                 return
         }
-        let payParameters = [PaymentsModuleParameters.token.rawValue: token,
+        let token = parameters[PaymentsModuleParameters.token.rawValue]
+        let payParameters = [PaymentsModuleParameters.token.rawValue: token ?? "",
                              PaymentsModuleParameters.suggestedAmount.rawValue: amount]
         
         service.post(host: "payments",
@@ -43,12 +27,12 @@ class PaymentsInteractor: ModuleRoutable {
                      parameters: payParameters) { (response, urlResponse, error) in
                         
                         // We are not going to check errors and URL response status codes, just a shortest path.
-                        var networkError: ResponseError? = nil
+                        var networkingError: ResponseError? = nil
                         if let error = error {
-                            networkError = ResponseError(error: error, response: urlResponse)
+                            networkingError = ResponseError(error: error, response: urlResponse)
                         }
                         
-                        completion(urlResponse, networkError)
+                        completion(urlResponse, networkingError)
         }
     }
 }
@@ -61,10 +45,20 @@ class MockPaymentsNetworkService: NetworkService {
                        parameters: [String : Any]?,
                        completion: @escaping ([String : Any]?, HTTPURLResponse?, Error?) -> Void) {
         
-        // Just some basic validation, nothing fancy
-        if let parameters = parameters,
-            parameters[PaymentsModuleParameters.token.rawValue] as? String == "hf120938h12983dh",
-            parameters[PaymentsModuleParameters.suggestedAmount.rawValue] as? String != "" {
+        // This is a mock service for a specific interactor, where we always expect parameters.
+        guard let parameters = parameters else { return }
+        
+        // If we don't get a specific payment token, then we return 401
+        if parameters[PaymentsModuleParameters.token.rawValue] as? String == "hf120938h12983dh" {
+            
+            let error = NSError.init(domain: "com.module.architecture.demo.network-errors",
+                                     code: 401,
+                                     userInfo: nil)
+            completion(nil, nil, error)
+        }
+        
+        // We expect the amount, or there's Bad Request 400
+        if parameters[PaymentsModuleParameters.suggestedAmount.rawValue] as? String != "" {
             
             let url = URL(schema: "https",
                           host: host,
