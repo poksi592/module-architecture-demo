@@ -13,7 +13,7 @@ class PaymentWireframe: WireframeType {
     
     // We use the default storyboard, which can be changed later by injected parameter
     lazy var storyboard: UIStoryboard = UIStoryboard(name: "PaymentsStoryboard", bundle: nil)
-    lazy var presentedViewControllers = [WeakContainer<UIViewController>]()
+    var presentedViewControllers = [WeakContainer<UIViewController>]()
     var presentationMode: ModulePresentationMode = .none
     
     func presentPayViewController(with presenter: PaymentsPresenter, parameters: ModuleParameters?) {

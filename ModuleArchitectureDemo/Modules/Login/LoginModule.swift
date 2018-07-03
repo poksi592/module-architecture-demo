@@ -32,6 +32,7 @@ class LoginModule: ModuleType {
     }()
     
     var subscribedRoutables: [ModuleRoutable.Type] = [LoginPresenter.self]
+    var instantiatedRoutables: [WeakContainer<ModuleRoutable>] = []
 }
 
 

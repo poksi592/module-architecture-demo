@@ -64,9 +64,7 @@ class MockPaymentsNetworkService: NetworkService {
                                      userInfo: nil)
             completion(nil, response, error)
         }
-        
-        // We expect the amount, or there's Bad Request 400
-        if parameters[PaymentsModuleParameters.suggestedAmount.rawValue] as? String != "" {
+        else if parameters[PaymentsModuleParameters.suggestedAmount.rawValue] as? String != "" {
             
             let url = URL(schema: "https",
                           host: host,

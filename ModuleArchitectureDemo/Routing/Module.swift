@@ -75,7 +75,7 @@ public enum ResponseError: Error {
  
  Every module needs to identify itself with unique application route/domain which is queried by `ModuleHub`
  */
-public protocol ModuleType {
+public protocol ModuleType: class {
     
     /**
      Every module needs to identify itself with a certain route/domain
@@ -98,6 +98,7 @@ public protocol ModuleType {
      Reflection is used for memory savvy approach
      */
     var subscribedRoutables: [ModuleRoutable.Type] { get set }
+    var instantiatedRoutables: [WeakContainer<ModuleRoutable>] { get set }
     
     /**
      Function has to implement start of the module
@@ -121,7 +122,7 @@ public extension ModuleType {
     
     func open(parameters: ModuleParameters?, path: String?, callback: ModuleCallback?) {
         
-        let subscribedRoutableType = subscribedRoutables.filter { subscribedType in
+        let subscribedRoutableTypes = subscribedRoutables.filter { subscribedType in
             
             let matchedType = subscribedType.getPaths().filter { $0 == path }
             if matchedType.isEmpty == false {
@@ -130,14 +131,29 @@ public extension ModuleType {
             else {
                 return false
             }
-        }.first
-        guard let subscribedRoutable = subscribedRoutableType else { return }
-        subscribedRoutable.routable().route(parameters: parameters,
-                                            path: path,
-                                            callback: callback)
+        }
+        
+        guard let subscribedRoutableType = subscribedRoutableTypes.first else { return }
+        let routables: [WeakContainer<ModuleRoutable>] = instantiatedRoutables.filter { routable in
+            
+            return subscribedRoutableType == type(of: routable.value!)
+        }
+        if let routable = routables.first?.value {
+            routable.route(parameters: parameters,
+                           path: path,
+                           callback: callback)
+        }
+        else {
+            let routable = subscribedRoutableType.routable()
+            print("instantiatedRoutables 1 count: \(instantiatedRoutables.count)")
+            instantiatedRoutables.append(WeakContainer(value: routable))
+            print("instantiatedRoutables 2 count: \(instantiatedRoutables.count)")
+            routable.route(parameters: parameters,
+                            path: path,
+                            callback: callback)
+        }
         
         setup(parameters: parameters)
-
     }
     
     func setup(parameters: ModuleParameters?) { }

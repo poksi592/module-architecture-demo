@@ -14,7 +14,7 @@ enum PaymentsModuleParameters: String {
     case token
 }
 
-class PaymentModule: ModuleType {    
+class PaymentModule: ModuleType {
     
     var route: String = {
         return "payments"
@@ -27,5 +27,6 @@ class PaymentModule: ModuleType {
     }()
     
     var subscribedRoutables: [ModuleRoutable.Type] = [PaymentsPresenter.self]
+    var instantiatedRoutables: [WeakContainer<ModuleRoutable>] = []
 }
 

@@ -111,6 +111,7 @@ extension WireframeType {
             
             identifiableVc.storyboardId = identifier
             presentedViewControllers.append(WeakContainer(value: identifiableVc))
+            print("presentedViewControllers count: \(presentedViewControllers.count)")
             return identifiableVc
         }
         else {
@@ -148,6 +149,15 @@ extension WireframeType {
         
         DispatchQueue.main.async {
             
+            func presentableVc() -> UIViewController? {
+                
+                guard let delegate = UIApplication.shared.delegate as? AppDelegate,
+                    let window = delegate.window,
+                    let rootViewController = window.rootViewController else { return nil }
+                
+                return rootViewController.topmostNavigationController()?.childViewControllers.last?.topPresentedController() ?? rootViewController.topPresentedController()
+            }
+            
             switch self.presentationMode {
                 
             case .navigationStack:
@@ -162,16 +172,10 @@ extension WireframeType {
                 
             case .modal:
                 
-                guard let delegate = UIApplication.shared.delegate as? AppDelegate,
-                        let window = delegate.window,
-                        let rootViewController = window.rootViewController else { return }
-                
-                let currentVc = rootViewController.topmostNavigationController()?.childViewControllers.last?.topPresentedController() ?? rootViewController.topPresentedController()
-                
                 // If we want to use modal with navigation bar, we can simply set it up in storyboard.
                 // We could do this here as well, if we'd have some other app global navigation scenarios.
                 
-                currentVc?.present(viewController, animated: true, completion: nil)
+                presentableVc()?.present(viewController, animated: true, completion: nil)
                 
             case .none: ()
                 
