@@ -145,9 +145,7 @@ public extension ModuleType {
         }
         else {
             let routable = subscribedRoutableType.routable()
-            print("instantiatedRoutables 1 count: \(instantiatedRoutables.count)")
             instantiatedRoutables.append(WeakContainer(value: routable))
-            print("instantiatedRoutables 2 count: \(instantiatedRoutables.count)")
             routable.route(parameters: parameters,
                             path: path,
                             callback: callback)

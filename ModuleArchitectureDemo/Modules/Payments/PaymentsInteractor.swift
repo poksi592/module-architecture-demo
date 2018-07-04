@@ -62,6 +62,9 @@ class MockPaymentsNetworkService: NetworkService {
             let error = NSError.init(domain: "com.module.architecture.demo.network-errors",
                                      code: 401,
                                      userInfo: nil)
+            
+            print("Payment failed, 401")
+            
             completion(nil, response, error)
         }
         else if parameters[PaymentsModuleParameters.suggestedAmount.rawValue] as? String != "" {
@@ -75,6 +78,9 @@ class MockPaymentsNetworkService: NetworkService {
                                               statusCode: 201,
                                               httpVersion: nil,
                                               headerFields: nil)
+            
+            print("Payment successful, 201")
+            
             completion([String: String](), urlResponse, nil)
         }
         else {

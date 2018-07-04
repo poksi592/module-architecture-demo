@@ -149,6 +149,9 @@ class MockLoginNetworkService: NetworkService {
                                                   statusCode: 200,
                                                   httpVersion: nil,
                                                   headerFields: nil)
+                
+                print("Login for payment token successful, 200")
+                
                 completion([LoginModuleParameters.paymentToken.rawValue: "hf120938h12983dh"], urlResponse, nil)
             }
             else {
@@ -156,6 +159,9 @@ class MockLoginNetworkService: NetworkService {
                 let error = NSError.init(domain: "com.module.architecture.demo.network-errors",
                                          code: 401,
                                          userInfo: nil)
+                
+                print("Login for payment token failed, 400")
+                
                 completion(nil, nil, error)
             }
             

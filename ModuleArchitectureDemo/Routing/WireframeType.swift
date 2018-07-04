@@ -111,7 +111,6 @@ extension WireframeType {
             
             identifiableVc.storyboardId = identifier
             presentedViewControllers.append(WeakContainer(value: identifiableVc))
-            print("presentedViewControllers count: \(presentedViewControllers.count)")
             return identifiableVc
         }
         else {

@@ -19,8 +19,6 @@ class LoginViewController: StoryboardIdentifiableViewController {
     @IBAction private func login(_ sender: UIButton) {
         
         presenter?.login(username: usernameField?.text, password: passwordField?.text)
-//        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
-    
-    
 }
