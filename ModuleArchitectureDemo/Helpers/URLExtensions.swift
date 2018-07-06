@@ -1,9 +1,9 @@
 //
 //  URLExtensions.swift
-//  TandemApp
+//  ModuleArchitectureDemo
 //
-//  Created by Mladen Despotovic on 17/05/2017.
-//  Copyright © 2017 Tandem. All rights reserved.
+//  Created by Mladen Despotovic on 14/05/2018.
+//  Copyright © 2018 Mladen Despotovic. All rights reserved.
 //
 
 import Foundation

@@ -55,7 +55,7 @@ class ApplicationRouter: ApplicationRouterType {
     
     // TODO: This is synchronising only write access, which might be inadequate in many cases
     // Need to be replaced with proper full generic implementation of synchronized collection
-    private (set) var moduleQueue = DispatchQueue(label: "com.tandem.module.queue")
+    private (set) var moduleQueue = DispatchQueue(label: "com.yourbank.module.queue")
     
     // ApplicationRouter is a singleton, because it makes it easier to be accessed from anywhere to access its functions/services
     static let shared = ApplicationRouter()
@@ -69,7 +69,7 @@ class ApplicationRouter: ApplicationRouterType {
     
     // TODO: This is synchronisyng only write access, which might be inadequate in many cases
     // Need to be replaced with proper full generic implementation of synchronized collection
-    private (set) var moduleQueue = DispatchQueue(label: "com.tandem.module.queue")
+    private (set) var moduleQueue = DispatchQueue(label: "com.yourbank.module.queue")
     
     // MARK: URLProtocol methods overriding
     

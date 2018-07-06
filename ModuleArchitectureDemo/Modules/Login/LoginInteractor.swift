@@ -73,7 +73,7 @@ class LoginInteractor: ModuleRoutable {
             let username = parameters[LoginModuleParameters.username.rawValue],
             let password = parameters[LoginModuleParameters.password.rawValue] else {
                 
-                let url = URL.init(schema: "tandem", host: "login")
+                let url = URL.init(schema: "yourbank", host: "login")
                 let response = HTTPURLResponse.init(url: url!,
                                                     statusCode: 400,
                                                     httpVersion: nil,

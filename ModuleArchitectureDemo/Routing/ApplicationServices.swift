@@ -22,7 +22,7 @@ class ApplicationServices {
         // MARK Urls to make the logic more readable, not to clog the logic in closures in the service
         func payUrl(amount: Double, paymentToken: String?) -> URL? {
             
-            guard let moduleUrl = URL(schema: "tandem",
+            guard let moduleUrl = URL(schema: "yourbank",
                                       host: "payments",
                                       path: "/pay",
                                       parameters: ["amount": String(amount),
@@ -36,7 +36,7 @@ class ApplicationServices {
 
             // We add view controller, because there could be business cases where we could already pass
             // username and password and no view controller for their input would be needed
-            guard let moduleUrl = URL(schema: "tandem",
+            guard let moduleUrl = URL(schema: "yourbank",
                                       host: "login",
                                       path: "/payment-token",
                                       parameters: ["viewController": "LoginViewControllerId",

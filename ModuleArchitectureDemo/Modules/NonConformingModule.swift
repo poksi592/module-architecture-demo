@@ -15,7 +15,7 @@ class NonConformingModule {
                completion: ((String?, Error?) -> Void)?) {
         
         let service = NetworkService()
-        service.post(scheme: "tandem",
+        service.post(scheme: "yourbank",
                      host: "login",
                      path: "/login",
                      parameters: ["username": "myUsername",
